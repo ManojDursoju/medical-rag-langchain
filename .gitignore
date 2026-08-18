@@ -1,0 +1,24 @@
+# Environment
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Data
+data/raw_pdfs/*
+data/vector_db/*
+data/processed/*
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+
+#virtual Environment
+.venv/
+__pycache__/
+.env
+data/raw_pdfs/
+data/vector_db/

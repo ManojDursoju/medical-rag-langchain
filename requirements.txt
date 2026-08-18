@@ -1,0 +1,15 @@
+langchain
+langchain-community
+langchain-openai
+langgraph
+faiss-cpu
+pypdf
+unstructured
+sentence-transformers
+openai
+streamlit
+fastapi
+uvicorn
+python-dotenv
+requests
+tqdm

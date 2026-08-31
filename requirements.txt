@@ -13,3 +13,4 @@ uvicorn
 python-dotenv
 requests
 tqdm
+beautifulsoup4

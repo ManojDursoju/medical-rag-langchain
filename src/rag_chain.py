@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -38,7 +39,6 @@ from reranker import MedicalReranker
 
 FINAL_EVIDENCE_K = 5
 
-# Use a Gemini model available to your API account.
 LLM_MODEL = "gemini-3.6-flash"
 
 
@@ -49,28 +49,36 @@ LLM_MODEL = "gemini-3.6-flash"
 SYSTEM_PROMPT = """
 You are a Medical Research RAG Copilot.
 
-You answer scientific and medical research questions using ONLY
-the PubMed evidence supplied by the retrieval system.
+Your job is to answer scientific and medical research questions
+using ONLY the PubMed evidence supplied in the user message.
+
+The retrieved evidence is the authoritative source for this answer.
 
 STRICT GROUNDING RULES:
 
-1. Do not invent facts.
-2. Do not use unsupported information.
-3. Do not fabricate citations.
-4. Only cite PMIDs present in the supplied evidence.
-5. Only provide DOIs present in the supplied evidence.
-6. Distinguish reported study findings from interpretation.
-7. Preserve numerical results accurately.
-8. Mention limitations and uncertainty when supported by the papers.
-9. If the retrieved evidence is insufficient, explicitly say:
+1. Do not use outside knowledge.
+2. Do not invent facts.
+3. Do not invent numerical results.
+4. Do not fabricate citations.
+5. Only cite PMIDs that appear in the supplied evidence.
+6. Only provide DOIs that appear in the supplied evidence.
+7. Do not attribute a finding to a paper unless the supplied evidence
+   supports that finding.
+8. Distinguish reported study findings from your synthesis or interpretation.
+9. Preserve numerical values accurately.
+10. Mention uncertainty, limitations, or conflicting findings when supported
+    by the supplied evidence.
+11. If the evidence is insufficient, explicitly state:
 
-   "The retrieved PubMed evidence is insufficient to answer this reliably."
+"The retrieved PubMed evidence is insufficient to answer this reliably."
 
-10. Do not provide an individual medical diagnosis.
-11. Do not recommend treatment for an individual patient.
-12. This system is for research and educational purposes.
+12. Do not provide an individual medical diagnosis.
+13. Do not recommend treatment for an individual patient.
+14. This system is intended for research and educational purposes.
 
-Citation format:
+CITATION RULES:
+
+Use:
 
 [PMID: 12345678]
 
@@ -78,7 +86,9 @@ or:
 
 [PMID: 12345678; DOI: 10.xxxx/xxxxx]
 
-Never create a PMID or DOI that is not present in the evidence.
+Never create a PMID or DOI.
+
+Every PMID and DOI in the answer must exist in the supplied evidence.
 """
 
 
@@ -103,17 +113,21 @@ Retrieved PubMed evidence:
 
 {context}
 
-Answer the question using ONLY the retrieved evidence.
+Answer the research question using ONLY the retrieved PubMed evidence.
 
 Use this structure:
 
 ## Answer
 
-Provide a clear scientific synthesis.
+Provide a concise but scientifically useful synthesis of the evidence.
+
+Cite claims using the supplied PMID.
 
 ## Evidence
 
-Explain the important findings and cite the relevant PMID.
+Explain the important findings from the retrieved publications.
+
+Use PMID citations for individual findings.
 
 ## Limitations
 
@@ -122,9 +136,15 @@ when supported by the retrieved publications.
 
 ## Sources
 
-List the PubMed publications actually used.
+List only the publications actually used in the answer.
 
-Do not introduce information that is not supported by the evidence.
+For each source provide:
+
+- Title
+- PMID
+- DOI if available
+
+Do not introduce information that is not supported by the supplied evidence.
 """,
         ),
     ]
@@ -146,23 +166,253 @@ def format_evidence(
         start=1,
     ):
 
+        pmid = str(
+            item.get(
+                "pmid",
+                "",
+            )
+        ).strip()
+
+        title = str(
+            item.get(
+                "title",
+                "",
+            )
+        ).strip()
+
+        journal = str(
+            item.get(
+                "journal",
+                "",
+            )
+        ).strip()
+
+        year = str(
+            item.get(
+                "year",
+                "",
+            )
+        ).strip()
+
+        doi = str(
+            item.get(
+                "doi",
+                "",
+            )
+        ).strip()
+
+        topic = str(
+            item.get(
+                "topic",
+                "",
+            )
+        ).strip()
+
+        page_content = str(
+            item.get(
+                "page_content",
+                "",
+            )
+        ).strip()
+
         sections.append(
             f"""
 --- EVIDENCE {i} ---
 
-PMID: {item.get("pmid", "")}
-Title: {item.get("title", "")}
-Journal: {item.get("journal", "")}
-Year: {item.get("year", "")}
-DOI: {item.get("doi", "")}
-Topic: {item.get("topic", "")}
+PMID: {pmid}
+Title: {title}
+Journal: {journal}
+Year: {year}
+DOI: {doi}
+Topic: {topic}
 
 Evidence:
-{item.get("page_content", "")}
-"""
+{page_content}
+""".strip()
         )
 
-    return "\n".join(sections)
+    return "\n\n".join(
+        sections
+    )
+
+
+# ==============================================================
+# Clean Gemini response
+# ==============================================================
+
+def clean_llm_response(
+    content,
+) -> str:
+    """
+    Gemini 3.6 Flash may return structured content such as:
+
+    [
+        {
+            "type": "text",
+            "text": "..."
+        }
+    ]
+
+    Convert it into clean plain text.
+    """
+
+    if content is None:
+        return ""
+
+    # ----------------------------------------------------------
+    # Normal string
+    # ----------------------------------------------------------
+
+    if isinstance(
+        content,
+        str,
+    ):
+
+        return content.strip()
+
+    # ----------------------------------------------------------
+    # Structured list
+    # ----------------------------------------------------------
+
+    if isinstance(
+        content,
+        list,
+    ):
+
+        text_parts = []
+
+        for block in content:
+
+            # Dictionary block
+            if isinstance(
+                block,
+                dict,
+            ):
+
+                text = block.get(
+                    "text"
+                )
+
+                if text:
+                    text_parts.append(
+                        str(text)
+                    )
+
+                continue
+
+            # Object with .text
+            text = getattr(
+                block,
+                "text",
+                None,
+            )
+
+            if text:
+                text_parts.append(
+                    str(text)
+                )
+
+        return "\n".join(
+            text_parts
+        ).strip()
+
+    # ----------------------------------------------------------
+    # Fallback
+    # ----------------------------------------------------------
+
+    return str(
+        content
+    ).strip()
+
+
+# ==============================================================
+# Validate citations
+# ==============================================================
+
+def validate_citations(
+    answer: str,
+    evidence: list[dict],
+) -> str:
+    """
+    Remove accidental PMID/DOI references that were not present
+    in the retrieved evidence.
+
+    This is a safety layer, not a substitute for the grounding prompt.
+    """
+
+    valid_pmids = {
+        str(
+            item.get(
+                "pmid",
+                "",
+            )
+        ).strip()
+        for item in evidence
+        if item.get("pmid")
+    }
+
+    valid_dois = {
+        str(
+            item.get(
+                "doi",
+                "",
+            )
+        ).strip().lower()
+        for item in evidence
+        if item.get("doi")
+    }
+
+    # ----------------------------------------------------------
+    # PMID validation
+    # ----------------------------------------------------------
+
+    def replace_pmid(
+        match,
+    ):
+
+        pmid = match.group(
+            1
+        )
+
+        if pmid in valid_pmids:
+            return match.group(0)
+
+        return "[PMID: unavailable]"
+
+    answer = re.sub(
+        r"\[PMID:\s*(\d+)\]",
+        replace_pmid,
+        answer,
+        flags=re.IGNORECASE,
+    )
+
+    # ----------------------------------------------------------
+    # DOI validation
+    # ----------------------------------------------------------
+
+    def replace_doi(
+        match,
+    ):
+
+        doi = match.group(
+            1
+        ).rstrip(
+            ".,;)"
+        )
+
+        if doi.lower() in valid_dois:
+            return match.group(0)
+
+        return "DOI: unavailable"
+
+    answer = re.sub(
+        r"(?:DOI:\s*)(10\.\S+)",
+        replace_doi,
+        answer,
+        flags=re.IGNORECASE,
+    )
+
+    return answer
 
 
 # ==============================================================
@@ -176,17 +426,29 @@ class MedicalRAGCopilot:
         retrieval_only: bool = False,
     ):
 
-        self.retrieval_only = retrieval_only
+        self.retrieval_only = (
+            retrieval_only
+        )
 
-        print("=" * 80)
-        print("MEDICAL RESEARCH RAG & LLM COPILOT")
-        print("=" * 80)
+        print(
+            "=" * 80
+        )
+
+        print(
+            "MEDICAL RESEARCH RAG & LLM COPILOT"
+        )
+
+        print(
+            "=" * 80
+        )
 
         # ------------------------------------------------------
         # Retrieval
         # ------------------------------------------------------
 
-        print("\nInitializing retrieval system...")
+        print(
+            "\nInitializing retrieval system..."
+        )
 
         reranker = MedicalReranker()
 
@@ -200,13 +462,22 @@ class MedicalRAGCopilot:
         # ------------------------------------------------------
 
         self.llm = None
+
         self.chain = None
 
         if retrieval_only:
 
-            print("\nMode: RETRIEVAL ONLY")
-            print("Gemini initialization skipped.")
-            print("No LLM API call will be made.")
+            print(
+                "\nMode: RETRIEVAL ONLY"
+            )
+
+            print(
+                "Gemini initialization skipped."
+            )
+
+            print(
+                "No LLM API call will be made."
+            )
 
         else:
 
@@ -225,10 +496,14 @@ class MedicalRAGCopilot:
                 f"{LLM_MODEL}"
             )
 
-            self.llm = ChatGoogleGenerativeAI(
-                model=LLM_MODEL,
-                temperature=0,
-                google_api_key=api_key,
+            # IMPORTANT:
+            # gemini-3.6-flash uses fixed sampling defaults.
+            # Do not pass temperature.
+            self.llm = (
+                ChatGoogleGenerativeAI(
+                    model=LLM_MODEL,
+                    google_api_key=api_key,
+                )
             )
 
             self.chain = (
@@ -236,8 +511,13 @@ class MedicalRAGCopilot:
                 | self.llm
             )
 
-            print("\nMode: FULL RAG")
-            print("Gemini LLM initialized.")
+            print(
+                "\nMode: FULL RAG"
+            )
+
+            print(
+                "Gemini LLM initialized."
+            )
 
     # ==========================================================
     # Retrieve
@@ -285,7 +565,19 @@ class MedicalRAGCopilot:
             return None, evidence
 
         # ------------------------------------------------------
-        # Gemini generation
+        # No evidence
+        # ------------------------------------------------------
+
+        if not evidence:
+
+            return (
+                "The retrieved PubMed evidence is insufficient "
+                "to answer this reliably.",
+                evidence,
+            )
+
+        # ------------------------------------------------------
+        # Format evidence
         # ------------------------------------------------------
 
         context = format_evidence(
@@ -296,6 +588,10 @@ class MedicalRAGCopilot:
             "\nGenerating grounded answer with Gemini..."
         )
 
+        # ------------------------------------------------------
+        # Generate
+        # ------------------------------------------------------
+
         response = self.chain.invoke(
             {
                 "question": question,
@@ -303,8 +599,25 @@ class MedicalRAGCopilot:
             }
         )
 
+        # ------------------------------------------------------
+        # Clean structured Gemini output
+        # ------------------------------------------------------
+
+        answer = clean_llm_response(
+            response.content
+        )
+
+        # ------------------------------------------------------
+        # Citation validation
+        # ------------------------------------------------------
+
+        answer = validate_citations(
+            answer,
+            evidence,
+        )
+
         return (
-            response.content,
+            answer,
             evidence,
         )
 
@@ -334,16 +647,19 @@ def display_sources(
         start=1,
     ):
 
-        print(
-            f"\n{i}. {item.get('title', '')}"
+        title = item.get(
+            "title",
+            "",
         )
 
-        print(
-            f"   PMID:   {item.get('pmid', '')}"
+        pmid = item.get(
+            "pmid",
+            "",
         )
 
-        print(
-            f"   Year:   {item.get('year', '')}"
+        year = item.get(
+            "year",
+            "",
         )
 
         doi = item.get(
@@ -351,7 +667,20 @@ def display_sources(
             "",
         )
 
+        print(
+            f"\n{i}. {title}"
+        )
+
+        print(
+            f"   PMID:   {pmid}"
+        )
+
+        print(
+            f"   Year:   {year}"
+        )
+
         if doi:
+
             print(
                 f"   DOI:    {doi}"
             )
@@ -363,11 +692,19 @@ def display_sources(
 
 def main():
 
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description=(
+            "Medical Research RAG & LLM Copilot"
+        )
+    )
 
     parser.add_argument(
         "--retrieval-only",
         action="store_true",
+        help=(
+            "Run retrieval and evidence "
+            "selection without Gemini."
+        ),
     )
 
     parser.add_argument(
@@ -377,13 +714,26 @@ def main():
             "How is deep learning used "
             "for brain tumor segmentation?"
         ),
+        help=(
+            "Research question to answer."
+        ),
     )
 
     args = parser.parse_args()
 
+    # ----------------------------------------------------------
+    # Initialize
+    # ----------------------------------------------------------
+
     copilot = MedicalRAGCopilot(
-        retrieval_only=args.retrieval_only
+        retrieval_only=(
+            args.retrieval_only
+        )
     )
+
+    # ----------------------------------------------------------
+    # Run
+    # ----------------------------------------------------------
 
     answer, evidence = copilot.ask(
         args.question

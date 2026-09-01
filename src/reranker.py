@@ -1,318 +1,571 @@
 from __future__ import annotations
 
-import pickle
 import re
-from pathlib import Path
 
-import faiss
-from rank_bm25 import BM25Okapi
-from sentence_transformers import SentenceTransformer, CrossEncoder
+from sentence_transformers import CrossEncoder
 
-
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-VECTOR_DB = PROJECT_ROOT / "data" / "vector_db"
-
-INDEX_FILE = VECTOR_DB / "index.faiss"
-METADATA_FILE = VECTOR_DB / "metadata.pkl"
-CONFIG_FILE = VECTOR_DB / "config.pkl"
+from retriever import MedicalRetriever
 
 
-# ------------------------------------------------------------
-# Medical relevance terms
-# ------------------------------------------------------------
+# ============================================================
+# Configuration
+# ============================================================
 
-BRAIN_TERMS = {
-    "brain tumor",
-    "brain tumour",
-    "brain neoplasm",
-    "glioma",
-    "glioblastoma",
-    "astrocytoma",
-    "oligodendroglioma",
-    "glioblastoma multiforme",
-    "idh",
-    "idh1",
-    "idh2",
-    "mgmt",
-    "egfr",
-    "1p/19q",
-    "cdkn2a",
-    "tp53",
-    "nf1",
-    "pdgfra",
-    "mri",
-    "magnetic resonance imaging",
-    "flair",
-    "diffusion",
-    "perfusion",
-    "radiomics",
-    "radiogenomics",
+RERANKER_MODEL = "BAAI/bge-reranker-base"
+
+CANDIDATE_K = 30
+FINAL_RERANK_K = 15
+
+
+# ============================================================
+# Query concept detection
+# ============================================================
+
+QUERY_GROUPS = {
+    "glioblastoma": [
+        "glioblastoma",
+        "glioblastoma multiforme",
+        "gbm",
+    ],
+    "glioma": [
+        "glioma",
+        "astrocytoma",
+        "oligodendroglioma",
+        "diffuse glioma",
+    ],
+    "brain": [
+        "brain tumor",
+        "brain tumour",
+        "brain neoplasm",
+        "intracranial tumor",
+        "intracranial tumour",
+    ],
+    "mri": [
+        "mri",
+        "magnetic resonance",
+        "t1-weighted",
+        "t2-weighted",
+        "flair",
+        "diffusion",
+        "perfusion",
+    ],
+    "segmentation": [
+        "segmentation",
+        "segment",
+        "segmented",
+        "tumor boundary",
+        "tumour boundary",
+        "u-net",
+        "unet",
+        "voxel",
+        "delineation",
+    ],
+    "radiomics": [
+        "radiomics",
+        "radiomic",
+        "radiomic features",
+        "texture features",
+    ],
+    "treatment": [
+        "treatment response",
+        "response assessment",
+        "response monitoring",
+        "therapy response",
+        "treatment outcome",
+        "progression",
+        "pseudoprogression",
+        "radionecrosis",
+        "recurrence",
+        "temozolomide",
+        "radiotherapy",
+    ],
+    "molecular": [
+        "idh",
+        "idh1",
+        "idh2",
+        "mgmt",
+        "egfr",
+        "1p/19q",
+        "cdkn2a",
+        "tp53",
+        "nf1",
+        "pdgfra",
+        "mutation",
+        "methylation",
+        "molecular",
+        "genomic",
+    ],
+    "deep_learning": [
+        "deep learning",
+        "convolutional neural network",
+        "cnn",
+        "neural network",
+        "u-net",
+        "unet",
+        "transformer",
+        "machine learning",
+    ],
 }
 
 
+# ============================================================
+# Normalization
+# ============================================================
+
 def normalize(text: str) -> str:
-    return re.sub(
+
+    text = str(text).lower()
+
+    text = re.sub(
         r"\s+",
         " ",
-        text.lower(),
-    ).strip()
+        text,
+    )
+
+    return text.strip()
 
 
-def medical_relevance_score(text: str) -> float:
-    """
-    Lightweight domain relevance score.
+# ============================================================
+# Detect concepts
+# ============================================================
 
-    This is a ranking signal, not a hard filter.
-    """
+def detect_concepts(
+    text: str,
+) -> set[str]:
 
     text = normalize(text)
 
-    matches = sum(
-        1 for term in BRAIN_TERMS
-        if term in text
+    concepts = set()
+
+    for group, terms in QUERY_GROUPS.items():
+
+        for term in terms:
+
+            if term in text:
+                concepts.add(group)
+                break
+
+    return concepts
+
+
+# ============================================================
+# Topic compatibility
+# ============================================================
+
+def topic_compatibility(
+    query: str,
+    item: dict,
+) -> float:
+
+    query_concepts = detect_concepts(
+        query
     )
 
-    return min(
-        matches / 8.0,
-        1.0,
+    title = item.get(
+        "title",
+        "",
+    )
+
+    content = item.get(
+        "page_content",
+        "",
+    )
+
+    text_concepts = detect_concepts(
+        title + " " + content
+    )
+
+    if not query_concepts:
+        return 0.5
+
+    matched = len(
+        query_concepts
+        & text_concepts
+    )
+
+    return matched / len(
+        query_concepts
     )
 
 
-# ------------------------------------------------------------
-# Retriever + reranker
-# ------------------------------------------------------------
+# ============================================================
+# Strong domain compatibility
+# ============================================================
+
+def is_strongly_compatible(
+    query: str,
+    item: dict,
+) -> bool:
+
+    query_concepts = detect_concepts(
+        query
+    )
+
+    title = normalize(
+        item.get("title", "")
+    )
+
+    topic = normalize(
+        item.get("topic", "")
+    )
+
+    content = normalize(
+        item.get("page_content", "")
+    )
+
+    # --------------------------------------------------------
+    # Brain/glioma queries
+    # --------------------------------------------------------
+
+    brain_query = bool(
+        query_concepts
+        & {
+            "brain",
+            "glioma",
+            "glioblastoma",
+        }
+    )
+
+    if brain_query:
+
+        brain_evidence = any(
+            term in title
+            or term in content[:4000]
+            for term in [
+                "brain tumor",
+                "brain tumour",
+                "brain neoplasm",
+                "glioma",
+                "glioblastoma",
+                "glioblastoma multiforme",
+                "gbm",
+            ]
+        )
+
+        if not brain_evidence:
+            return False
+
+        # Topic-level protection.
+        unrelated_topics = [
+            "meningioma",
+            "cervical",
+            "prostate",
+            "breast",
+            "lung",
+            "colorectal",
+            "rectal",
+            "renal",
+            "shoulder",
+            "hip",
+            "rotator",
+        ]
+
+        # If topic contains an unrelated domain and
+        # the title does not explicitly establish brain
+        # tumor relevance, reject it.
+        for term in unrelated_topics:
+
+            if term in title:
+                return False
+
+    # --------------------------------------------------------
+    # Radiomics + glioma
+    # --------------------------------------------------------
+
+    if (
+        "radiomics" in query_concepts
+        and (
+            "glioma" in query_concepts
+            or "glioblastoma" in query_concepts
+            or "brain" in query_concepts
+        )
+    ):
+
+        glioma_present = any(
+            term in title
+            or term in content[:5000]
+            for term in [
+                "glioma",
+                "glioblastoma",
+                "gbm",
+                "brain tumor",
+                "brain tumour",
+            ]
+        )
+
+        if not glioma_present:
+            return False
+
+    return True
+
+
+# ============================================================
+# Reranker
+# ============================================================
 
 class MedicalReranker:
 
-    def __init__(self):
+    def __init__(
+        self,
+        retriever: MedicalRetriever | None = None,
+    ):
 
         print("=" * 80)
         print("MEDICAL RERANKER")
         print("=" * 80)
 
-        # Load FAISS
-        self.index = faiss.read_index(
-            str(INDEX_FILE)
-        )
-
-        # Load metadata
-        with METADATA_FILE.open("rb") as f:
-            self.metadata = pickle.load(f)
-
-        # Load configuration
-        with CONFIG_FILE.open("rb") as f:
-            self.config = pickle.load(f)
-
-        embedding_model = self.config[
-            "embedding_model"
-        ]
-
-        print(
-            f"Embedding model: {embedding_model}"
-        )
-
-        self.embedding_model = SentenceTransformer(
-            embedding_model,
-            device="cpu",
-        )
-
-        # Cross encoder
-        reranker_name = (
-            "BAAI/bge-reranker-base"
+        self.retriever = (
+            retriever
+            if retriever is not None
+            else MedicalRetriever()
         )
 
         print(
-            f"Reranker model:   {reranker_name}"
+            f"Reranker model:   "
+            f"{RERANKER_MODEL}"
         )
 
         self.reranker = CrossEncoder(
-            reranker_name,
+            RERANKER_MODEL,
             device="cpu",
         )
 
-        print("Reranker ready.")
-
-    # --------------------------------------------------------
-    # Candidate retrieval
-    # --------------------------------------------------------
-
-    def retrieve_candidates(
-        self,
-        query: str,
-        top_k: int = 20,
-    ):
-
-        embedding = self.embedding_model.encode(
-            [query],
-            convert_to_numpy=True,
-            normalize_embeddings=True,
-        ).astype("float32")
-
-        scores, indices = self.index.search(
-            embedding,
-            top_k,
+        print(
+            "Reranker ready."
         )
 
-        candidates = []
-
-        for rank, (score, idx) in enumerate(
-            zip(scores[0], indices[0]),
-            start=1,
-        ):
-
-            if idx < 0:
-                continue
-
-            item = self.metadata[idx].copy()
-
-            item["faiss_score"] = float(score)
-            item["faiss_rank"] = rank
-            item["faiss_id"] = int(idx)
-
-            candidates.append(item)
-
-        return candidates
-
-    # --------------------------------------------------------
+    # ========================================================
     # Rerank
-    # --------------------------------------------------------
+    # ========================================================
 
     def rerank(
         self,
         query: str,
         candidates: list[dict],
-        top_k: int = 5,
-    ):
+        top_k: int = FINAL_RERANK_K,
+    ) -> list[dict]:
 
-        pairs = []
+        # ----------------------------------------------------
+        # Remove duplicate PMID
+        # ----------------------------------------------------
+
+        unique = []
+
+        seen_pmids = set()
 
         for item in candidates:
 
-            pairs.append(
-                (
+            pmid = str(
+                item.get(
+                    "pmid",
+                    "",
+                )
+            ).strip()
+
+            if pmid and pmid in seen_pmids:
+                continue
+
+            if pmid:
+                seen_pmids.add(pmid)
+
+            unique.append(item)
+
+        # ----------------------------------------------------
+        # Domain filtering
+        # ----------------------------------------------------
+
+        compatible = []
+
+        for item in unique:
+
+            compatible_flag = (
+                is_strongly_compatible(
                     query,
-                    item["page_content"],
+                    item,
                 )
             )
+
+            item[
+                "topic_compatible"
+            ] = compatible_flag
+
+            if compatible_flag:
+                compatible.append(item)
+
+        # Don't return nothing if a query is unusual.
+        if not compatible:
+            compatible = unique
+
+        # ----------------------------------------------------
+        # CrossEncoder
+        # ----------------------------------------------------
+
+        pairs = [
+            (
+                query,
+                item.get(
+                    "page_content",
+                    "",
+                ),
+            )
+            for item in compatible
+        ]
 
         scores = self.reranker.predict(
             pairs,
             show_progress_bar=True,
         )
 
+        # ----------------------------------------------------
+        # Combine scores
+        # ----------------------------------------------------
+
         for item, score in zip(
-            candidates,
+            compatible,
             scores,
         ):
 
-            item["reranker_score"] = float(
+            reranker_score = float(
                 score
             )
 
-            item[
-                "medical_relevance"
-            ] = medical_relevance_score(
-                item["page_content"]
+            retrieval_score = float(
+                item.get(
+                    "retrieval_score",
+                    item.get(
+                        "faiss_score",
+                        0.0,
+                    ),
+                )
             )
 
-            # Combined ranking signal.
-            item["final_score"] = (
-                0.75 * item["reranker_score"]
-                + 0.25 * item[
-                    "medical_relevance"
-                ]
+            domain_score = float(
+                item.get(
+                    "domain_score",
+                    0.5,
+                )
             )
+
+            # CrossEncoder is the strongest signal.
+            item[
+                "reranker_score"
+            ] = reranker_score
+
+            item[
+                "final_score"
+            ] = (
+                0.60 * reranker_score
+                + 0.25 * retrieval_score
+                + 0.15 * domain_score
+            )
+
+        # ----------------------------------------------------
+        # Sort
+        # ----------------------------------------------------
 
         ranked = sorted(
-            candidates,
-            key=lambda x: x["final_score"],
+            compatible,
+            key=lambda x: x[
+                "final_score"
+            ],
             reverse=True,
         )
 
         return ranked[:top_k]
 
 
-# ------------------------------------------------------------
+# ============================================================
 # Display
-# ------------------------------------------------------------
+# ============================================================
 
 def display_results(
     query: str,
     results: list[dict],
 ):
 
-    print("\n" + "=" * 90)
-    print("RERANKED MEDICAL EVIDENCE")
-    print("=" * 90)
+    print(
+        "\n" + "=" * 90
+    )
 
-    print(f"\nQuery:\n{query}")
+    print(
+        "RERANKED MEDICAL EVIDENCE"
+    )
 
-    for i, result in enumerate(
+    print(
+        "=" * 90
+    )
+
+    print(
+        f"\nQuery:\n{query}"
+    )
+
+    for i, item in enumerate(
         results,
         start=1,
     ):
 
-        print("\n" + "-" * 90)
+        print(
+            "\n" + "-" * 90
+        )
 
-        print(f"Result #{i}")
+        print(
+            f"Result #{i}"
+        )
+
         print(
             f"Final score:       "
-            f"{result['final_score']:.4f}"
+            f"{item['final_score']:.4f}"
         )
 
         print(
             f"Reranker score:    "
-            f"{result['reranker_score']:.4f}"
+            f"{item['reranker_score']:.4f}"
         )
 
         print(
-            f"Medical relevance: "
-            f"{result['medical_relevance']:.4f}"
+            f"Retrieval score:   "
+            f"{item.get('retrieval_score', 0):.4f}"
         )
 
         print(
-            f"FAISS score:       "
-            f"{result['faiss_score']:.4f}"
+            f"Domain score:      "
+            f"{item.get('domain_score', 0):.4f}"
         )
 
         print(
-            f"PMID:               "
-            f"{result['pmid']}"
+            f"PMID:              "
+            f"{item['pmid']}"
         )
 
         print(
-            f"Title:              "
-            f"{result['title']}"
+            f"Title:             "
+            f"{item['title']}"
         )
 
         print(
-            f"Year:               "
-            f"{result['year']}"
+            f"Year:              "
+            f"{item['year']}"
         )
 
         print(
-            f"DOI:                "
-            f"{result['doi']}"
+            f"Journal:           "
+            f"{item['journal']}"
+        )
+
+        print(
+            f"DOI:               "
+            f"{item['doi']}"
         )
 
         print(
             f"Topic:              "
-            f"{result['topic']}"
+            f"{item['topic']}"
         )
 
-        print("\nEvidence:")
 
-        content = result["page_content"]
-
-        if len(content) > 1200:
-            content = content[:1200] + "..."
-
-        print(content)
-
-
-# ------------------------------------------------------------
-# Test questions
-# ------------------------------------------------------------
+# ============================================================
+# Tests
+# ============================================================
 
 TEST_QUERIES = [
 
@@ -324,33 +577,27 @@ TEST_QUERIES = [
 
     "How can MRI be used to predict treatment response in glioblastoma?",
 
-    (
-        "What imaging features are associated with "
-        "IDH1 MGMT EGFR and other glioma molecular characteristics?"
-    ),
+    "What imaging features are associated with glioma molecular characteristics?",
 ]
 
 
-# ------------------------------------------------------------
+# ============================================================
 # Main
-# ------------------------------------------------------------
+# ============================================================
 
 def main():
 
-    reranker = MedicalReranker()
+    retriever = MedicalRetriever()
+
+    reranker = MedicalReranker(
+        retriever
+    )
 
     for query in TEST_QUERIES:
 
-        print(
-            "\n\n"
-            + "#" * 90
-        )
-
-        candidates = (
-            reranker.retrieve_candidates(
-                query,
-                top_k=20,
-            )
+        candidates = retriever.retrieve(
+            query,
+            top_k=CANDIDATE_K,
         )
 
         results = reranker.rerank(
@@ -364,9 +611,17 @@ def main():
             results,
         )
 
-    print("\n" + "=" * 90)
-    print("RERANKING TEST COMPLETED")
-    print("=" * 90)
+    print(
+        "\n" + "=" * 90
+    )
+
+    print(
+        "RERANKING TEST COMPLETED"
+    )
+
+    print(
+        "=" * 90
+    )
 
 
 if __name__ == "__main__":

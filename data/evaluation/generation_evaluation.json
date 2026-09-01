@@ -1,0 +1,844 @@
+{
+  "model": "gemini-3.6-flash",
+  "summary": {
+    "queries_evaluated": 10,
+    "generation_pass_rate": 1.0,
+    "citation_integrity_rate": 1.0,
+    "structure_completion_rate": 1.0,
+    "average_retrieval_seconds": 7.6658128899987785,
+    "average_generation_seconds": 37.15784814995713,
+    "average_source_utilization": 0.7399999999999999
+  },
+  "results": [
+    {
+      "id": "Q01",
+      "question": "What MRI characteristics are associated with glioblastoma?",
+      "retrieval_time_seconds": 9.331814899807796,
+      "generation_time_seconds": 56.38542980002239,
+      "answer_length": 3043,
+      "citation_validation": {
+        "cited_pmids": [
+          "35838532",
+          "39815367",
+          "39019073"
+        ],
+        "valid_pmids": [
+          "35838532",
+          "39815367",
+          "39019073"
+        ],
+        "invalid_pmids": [],
+        "cited_dois": [
+          "10.1148/rycan.210076",
+          "10.1186/s40478-024-01900-1",
+          "10.1088/1361-6560/ad64b8"
+        ],
+        "valid_dois": [
+          "10.1148/rycan.210076",
+          "10.1186/s40478-024-01900-1",
+          "10.1088/1361-6560/ad64b8"
+        ],
+        "invalid_dois": [],
+        "citation_integrity": true
+      },
+      "structure_validation": {
+        "sections": {
+          "## Answer": true,
+          "## Evidence": true,
+          "## Limitations": true,
+          "## Sources": true
+        },
+        "structure_complete": true
+      },
+      "source_usage": {
+        "retrieved_sources": 5,
+        "cited_sources": 3,
+        "retrieved_sources_used": 3,
+        "source_utilization": 0.6
+      },
+      "passed": true,
+      "retrieved_sources": [
+        {
+          "pmid": "35838532",
+          "title": "Imaging Glioblastoma Metabolism by Using Hyperpolarized [1-(13)C]Pyruvate",
+          "doi": "10.1148/rycan.210076",
+          "year": "2022"
+        },
+        {
+          "pmid": "39999966",
+          "title": "A Radiologist's Guide to IDH-Wildtype Glioblastoma for Efficient Communication",
+          "doi": "10.3348/kjr.2024.0982",
+          "year": "2025"
+        },
+        {
+          "pmid": "39815367",
+          "title": "Discontiguous recurrences of IDH-wildtype glioblastoma share a common origin",
+          "doi": "10.1186/s40478-024-01900-1",
+          "year": "2025"
+        },
+        {
+          "pmid": "28755054",
+          "title": "MRI features can predict EGFR expression in lower grade gliomas: A voxel-based",
+          "doi": "10.1007/s00330-017-4964-z",
+          "year": "2018"
+        },
+        {
+          "pmid": "39019073",
+          "title": "Multi-modal fusion and feature enhancement U-Net coupling with stem cell niches",
+          "doi": "10.1088/1361-6560/ad64b8",
+          "year": "2024"
+        }
+      ],
+      "answer": "## Answer\n\nBased strictly on the provided PubMed evidence, glioblastoma (GBM) exhibits specific MRI characteristics across specialized metabolic, T2 FLAIR, and contrast-enhanced imaging modalities:\n\n* **Hyperpolarized 13C MRI:** Demonstrates variation in lactate labeling within and between tumors, alongside consistently lower bicarbonate labeling in tumors compared to surrounding normal-appearing brain parenchyma [PMID: 35838532; DOI: 10.1148/rycan.210076].\n* **T2 FLAIR MRI:** Signal continuity on T2 FLAIR imaging between the initial disease site and recurrent tumor is used to classify IDH-wildtype glioblastoma recurrences as either contiguous or discontiguous [PMID: 39815367; DOI: 10.1186/s40478-024-01900-1].\n* **T1-Weighted Contrast-Enhanced (T1ce) MRI:** T1ce sequences are used to define and annotate high-risk recurrence regions in glioblastoma predictive modeling [PMID: 39019073; DOI: 10.1088/1361-6560/ad64b8].\n\nStandard clinical diagnostic characteristics (such as central necrosis or rim enhancement) are not detailed in the provided literature.\n\n---\n\n## Evidence\n\n* **Hyperpolarized 13C MRI Metabolic Features:** A study investigating hyperpolarized 13C MRI reported that glioblastoma tumors exhibit variable lactate labeling both intra-tumorally and inter-tumorally. In contrast, bicarbonate labeling was consistently reduced in tumors relative to adjacent normal-appearing brain parenchyma [PMID: 35838532; DOI: 10.1148/rycan.210076].\n* **T2 FLAIR Signal in Recurrence:** In a study evaluating 22 patients with initial and recurrent IDH-wildtype glioblastoma, recurrences were categorized based on MRI T2 FLAIR signal connection. The presence or absence of T2 FLAIR signal connection to the initial site defined contiguous versus discontiguous recurrences [PMID: 39815367; DOI: 10.1186/s40478-024-01900-1].\n* **T1ce Features for Recurrence Modeling:** In a retrospective study of 57 patients evaluating pre- and post-surgery MR scans for machine-learning recurrence prediction, glioblastoma recurrences were annotated on T1-weighted contrast-enhanced (T1ce) MRI [PMID: 39019073; DOI: 10.1088/1361-6560/ad64b8].\n\n---\n\n## Limitations\n\n* The supplied evidence lacks details regarding standard diagnostic morphological MRI features (e.g., ring enhancement, central necrosis, vasogenic edema) typical of glioblastoma.\n* Findings regarding metabolic MRI are limited to hyperpolarized 13C pyruvate imaging, which is an advanced functional imaging modality rather than conventional anatomical MRI.\n* Descriptions of T2 FLAIR and T1ce imaging in the provided literature focus primarily on tumor recurrence classification and machine-learning modeling rather than baseline primary tumor diagnostic criteria.\n* One provided study examined radiomic MRI features for predicting EGFR status exclusively in lower-grade gliomas rather than glioblastoma (PMID: 28755054).\n\n---\n\n## Sources\n\n* [PMID: 35838532; DOI: 10.1148/rycan.210076]\n* [PMID: 39815367; DOI: 10.1186/s40478-024-01900-1]\n* [PMID: 39019073; DOI: 10.1088/1361-6560/ad64b8]"
+    },
+    {
+      "id": "Q02",
+      "question": "How is deep learning used for brain tumor segmentation?",
+      "retrieval_time_seconds": 8.77200510003604,
+      "generation_time_seconds": 62.691954399924725,
+      "answer_length": 3796,
+      "citation_validation": {
+        "cited_pmids": [
+          "40183298",
+          "30415717",
+          "36156956"
+        ],
+        "valid_pmids": [
+          "40183298",
+          "30415717",
+          "36156956"
+        ],
+        "invalid_pmids": [],
+        "cited_dois": [
+          "10.1177/18758592241311184",
+          "10.1016/j.cmpb.2018.09.007",
+          "10.1155/2022/5625757"
+        ],
+        "valid_dois": [
+          "10.1177/18758592241311184",
+          "10.1016/j.cmpb.2018.09.007",
+          "10.1155/2022/5625757"
+        ],
+        "invalid_dois": [],
+        "citation_integrity": true
+      },
+      "structure_validation": {
+        "sections": {
+          "## Answer": true,
+          "## Evidence": true,
+          "## Limitations": true,
+          "## Sources": true
+        },
+        "structure_complete": true
+      },
+      "source_usage": {
+        "retrieved_sources": 5,
+        "cited_sources": 3,
+        "retrieved_sources_used": 3,
+        "source_utilization": 0.6
+      },
+      "passed": true,
+      "retrieved_sources": [
+        {
+          "pmid": "40745383",
+          "title": "Deep learning-driven brain tumor classification and segmentation using",
+          "doi": "10.1038/s41598-025-13591-2",
+          "year": "2025"
+        },
+        {
+          "pmid": "40183298",
+          "title": "Brain tumor segmentation and detection in MRI using convolutional neural",
+          "doi": "10.1177/18758592241311184",
+          "year": "2025"
+        },
+        {
+          "pmid": "37635491",
+          "title": "Brain Tumor Detection using Deep Learning Approach.",
+          "doi": "10.4103/0028-3886.383858",
+          "year": "2023"
+        },
+        {
+          "pmid": "30415717",
+          "title": "Fully Automatic Brain Tumor Segmentation using End-To-End Incremental Deep",
+          "doi": "10.1016/j.cmpb.2018.09.007",
+          "year": "2018"
+        },
+        {
+          "pmid": "36156956",
+          "title": "Application of Genetic Algorithm and U-Net in Brain Tumor Segmentation and",
+          "doi": "10.1155/2022/5625757",
+          "year": "2022"
+        }
+      ],
+      "answer": "## Answer\n\nDeep learning techniques, primarily Convolutional Neural Networks (CNNs) and architectures like U-Net, are applied to multi-sequence magnetic resonance imaging (MRI) data to automate the segmentation and detection of brain tumors. These models learn complex representations directly from image data or preprocessed MRI scans, offering automated workflows, consistent results, and faster processing compared to manual clinical methods. Deep learning approaches reported in the evidence range from end-to-end incremental CNN models and ensemble learning systems to hybrid frameworks that integrate traditional image processing (such as skull stripping and histogram equalization) with optimization algorithms (such as genetic algorithms and particle swarm optimization).\n\n## Evidence\n\n- **Convolutional Neural Networks (CNNs) & Hybrid Methods**: CNNs learn complex features from raw MRI data, enabling automated brain tumor detection and segmentation [PMID: 40183298; DOI: 10.1177/18758592241311184]. Combining traditional image processing techniques with CNN-based deep learning creates automated systems that deliver faster processing, higher accuracy, and consistent tumor segmentation to assist clinicians in diagnosis and treatment [PMID: 40183298; DOI: 10.1177/18758592241311184].\n- **End-to-End Incremental CNNs & Ensemble Learning**: To address challenges in segmenting high- and low-grade glioblastomas across variable sizes, shapes, contrasts, and locations, researchers developed three end-to-end Incremental Deep CNN models combined with ensemble learning [PMID: 30415717; DOI: 10.1016/j.cmpb.2018.09.007]. Utilizing a training strategy that bounds key hyper-parameters to accelerate learning, the models achieved an average Dice score of 0.88 over the complete tumor region on the BRATS-2017 dataset without requiring post-processing operations [PMID: 30415717; DOI: 10.1016/j.cmpb.2018.09.007].\n- **U-Net and Optimization Frameworks (GA-UNET)**: Deep learning classification architectures like U-Net can be combined with heuristic algorithms [PMID: 36156956; DOI: 10.1155/2022/5625757]. In a study utilizing multi-sequence MRI scans from 130 patients (REMBRANDT dataset), a pipeline consisting of preprocessing (greyscale conversion, skull stripping, histogram equalization), genetic algorithm (GA) segmentation, discrete wavelet transform (DWT) feature extraction, particle swarm optimization (PSO) feature selection, and U-Net classification achieved an accuracy of 0.97, sensitivity of 0.98, and specificity of 0.98 [PMID: 36156956; DOI: 10.1155/2022/5625757].\n\n## Limitations\n\n- **Model Training and Hyper-parameter Challenges**: Standard CNN hyper-parameter selection often relies on unguided trial-and-error processes, which can increase training complexity if parameters are not bounded or structured [PMID: 30415717; DOI: 10.1016/j.cmpb.2018.09.007].\n- **Traditional Processing Constraints**: Conventional tumor detection approaches are limited by issues such as low-quality image processing, small dataset sizes, reduced predictive capacity, and omitted analytical stages, which can lead to inaccurate tumor identification [PMID: 36156956; DOI: 10.1155/2022/5625757].\n- **Dataset and Evidence Constraints**: Experimental performance metrics reported in the provided studies are constrained to specific datasets (such as BRATS-2017 or a 130-patient subset of the REMBRANDT dataset) [PMID: 30415717; DOI: 10.1016/j.cmpb.2018.09.007] [PMID: 36156956; DOI: 10.1155/2022/5625757]. Furthermore, two retrieved evidence items (PMID: 40745383 and PMID: 37635491) lacked detailed study abstracts or numerical findings.\n\n## Sources\n\n- PMID: 40183298; DOI: 10.1177/18758592241311184\n- PMID: 30415717; DOI: 10.1016/j.cmpb.2018.09.007\n- PMID: 36156956; DOI: 10.1155/2022/5625757"
+    },
+    {
+      "id": "Q03",
+      "question": "What is the role of radiomics in glioma diagnosis?",
+      "retrieval_time_seconds": 3.2800815999507904,
+      "generation_time_seconds": 22.77212019986473,
+      "answer_length": 4403,
+      "citation_validation": {
+        "cited_pmids": [
+          "34417848",
+          "39838503",
+          "40163098",
+          "39742798",
+          "42611869"
+        ],
+        "valid_pmids": [
+          "34417848",
+          "39838503",
+          "40163098",
+          "39742798",
+          "42611869"
+        ],
+        "invalid_pmids": [],
+        "cited_dois": [
+          "10.1007/s00330-021-08237-6",
+          "10.1186/s40644-024-00818-0",
+          "10.1007/s00234-025-03597-y",
+          "10.1016/j.clinimag.2024.110386",
+          "10.1371/journal.pone.0356382"
+        ],
+        "valid_dois": [
+          "10.1007/s00330-021-08237-6",
+          "10.1186/s40644-024-00818-0",
+          "10.1007/s00234-025-03597-y",
+          "10.1016/j.clinimag.2024.110386",
+          "10.1371/journal.pone.0356382"
+        ],
+        "invalid_dois": [],
+        "citation_integrity": true
+      },
+      "structure_validation": {
+        "sections": {
+          "## Answer": true,
+          "## Evidence": true,
+          "## Limitations": true,
+          "## Sources": true
+        },
+        "structure_complete": true
+      },
+      "source_usage": {
+        "retrieved_sources": 5,
+        "cited_sources": 5,
+        "retrieved_sources_used": 5,
+        "source_utilization": 1.0
+      },
+      "passed": true,
+      "retrieved_sources": [
+        {
+          "pmid": "42611869",
+          "title": "Evaluating the impact of segmentation strategies on radiomic feature stability",
+          "doi": "10.1371/journal.pone.0356382",
+          "year": "2026"
+        },
+        {
+          "pmid": "39742798",
+          "title": "MRI-derived radiomics and end-to-end deep learning models for predicting glioma",
+          "doi": "10.1016/j.clinimag.2024.110386",
+          "year": "2025"
+        },
+        {
+          "pmid": "40163098",
+          "title": "Machine learning radiomics for H3K27M mutation prediction in gliomas: A",
+          "doi": "10.1007/s00234-025-03597-y",
+          "year": "2025"
+        },
+        {
+          "pmid": "34417848",
+          "title": "Molecular subtyping of diffuse gliomas using magnetic resonance imaging:",
+          "doi": "10.1007/s00330-021-08237-6",
+          "year": "2022"
+        },
+        {
+          "pmid": "39838503",
+          "title": "Comparative analysis of deep learning and radiomic signatures for overall",
+          "doi": "10.1186/s40644-024-00818-0",
+          "year": "2025"
+        }
+      ],
+      "answer": "## Answer\n\nIn glioma care and research, radiomics extracted from magnetic resonance imaging (MRI) is utilized for molecular subtyping, prognostic estimation, and quantitative tumor characterization:\n\n- **Molecular Subtyping:** Radiomics derived from preoperative multiparametric MRI has been developed to predict molecular subtypes of diffuse gliomas across standard WHO classification categories [PMID: 34417848; DOI: 10.1007/s00330-021-08237-6].\n- **Prognosis and Survival Prediction:** Radiomic feature signatures have been used to evaluate overall survival in recurrent high-grade glioma patients undergoing immunotherapy [PMID: 39838503; DOI: 10.1186/s40644-024-00818-0].\n- **Mutation and Diagnostic Prediction:** Machine learning radiomics frameworks are applied to predict specific genetic alterations, such as H3K27M mutations in gliomas [PMID: 40163098; DOI: 10.1007/s00234-025-03597-y], as well as general glioma diagnosis [PMID: 39742798; DOI: 10.1016/j.clinimag.2024.110386].\n- **Quantitative Sensitivity to Segmentation:** The reproducibility of radiomic features depends strongly on tumor delineation strategies, notably affecting Apparent Diffusion Coefficient (ADC) map features in pediatric brain tumors such as pilocytic astrocytomas [PMID: 42611869; DOI: 10.1371/journal.pone.0356382].\n\n---\n\n## Evidence\n\n- **Molecular Subtyping of Diffuse Gliomas:** A study evaluated 1,016 diffuse glioma patients split into training ($n = 780$) and validation ($n = 236$) sets. Radiomics and deep convolutional neural network (DCNN) models were constructed from preoperative multiparametric MRI to evaluate four binary classification tasks aligned with the 2016 WHO classification [PMID: 34417848; DOI: 10.1007/s00330-021-08237-6].\n- **Overall Survival (OS) Prediction:** In patients with recurrent high-grade glioma receiving immunotherapy, radiomic signatures extracted from manual segmentations outperformed those from automated segmentations in predicting OS. Comparative end-to-end convolutional neural network (CNN) models achieved an average AUC of $0.755 \\pm 0.071$ in training sets and $0.700 \\pm 0.101$ in test sets, performing similarly to manual segmentation-derived radiomics modeling without requiring manual segmentation [PMID: 39838503; DOI: 10.1186/s40644-024-00818-0].\n- **Impact of Segmentation on Feature Stability:** In a cohort of 106 pediatric brain tumor patients, region of interest (ROI) dilation caused significantly greater feature variability ($p < 0.01$) than erosion across 18 of 19 first-order radiomic features extracted from ADC maps, exhibiting a large effect size ($d > 0.8$) for 11 features. This instability was most pronounced in pilocytic astrocytomas [PMID: 42611869; DOI: 10.1371/journal.pone.0356382].\n- **Additional Diagnostic Applications:** Retrieved titles indicate radiomics applications in end-to-end deep learning models for glioma prediction [PMID: 39742798; DOI: 10.1016/j.clinimag.2024.110386] and machine learning radiomics for predicting H3K27M mutation status in gliomas [PMID: 40163098; DOI: 10.1007/s00234-025-03597-y].\n\n---\n\n## Limitations\n\n- **Segmentation Sensitivity:** Radiomic feature extraction is sensitive to boundary delineation; automated segmentations yielded inferior survival prediction performance relative to manual segmentations in high-grade glioma [PMID: 39838503; DOI: 10.1186/s40644-024-00818-0], and ROI boundary expansion significantly increases first-order feature variability [PMID: 42611869; DOI: 10.1371/journal.pone.0356382].\n- **Model Interpretability:** While end-to-end deep learning models can bypass manual tumor segmentation, they suffer from lower interpretability (\"black box\" modeling) compared to radiomics feature extraction [PMID: 39838503; DOI: 10.1186/s40644-024-00818-0].\n- **Incomplete Abstract Evidence:** Specific numerical findings, diagnostic accuracy metrics, and detailed methods for H3K27M mutation prediction and general glioma prediction models were unavailable in the provided title-only evidence [PMID: 39742798; DOI: 10.1016/j.clinimag.2024.110386], [PMID: 40163098; DOI: 10.1007/s00234-025-03597-y].\n\n---\n\n## Sources\n\n- [PMID: 34417848; DOI: 10.1007/s00330-021-08237-6]\n- [PMID: 39742798; DOI: 10.1016/j.clinimag.2024.110386]\n- [PMID: 39838503; DOI: 10.1186/s40644-024-00818-0]\n- [PMID: 40163098; DOI: 10.1007/s00234-025-03597-y]\n- [PMID: 42611869; DOI: 10.1371/journal.pone.0356382]"
+    },
+    {
+      "id": "Q04",
+      "question": "How can MRI be used to predict treatment response in glioblastoma?",
+      "retrieval_time_seconds": 6.675462600076571,
+      "generation_time_seconds": 27.060831299982965,
+      "answer_length": 4354,
+      "citation_validation": {
+        "cited_pmids": [
+          "40299247",
+          "37789677",
+          "40158731",
+          "41492035"
+        ],
+        "valid_pmids": [
+          "40299247",
+          "37789677",
+          "40158731",
+          "41492035"
+        ],
+        "invalid_pmids": [],
+        "cited_dois": [
+          "10.1007/s11060-025-05060-7",
+          "10.4274/dir.2023.232442",
+          "10.1016/j.ijrobp.2025.03.037",
+          "10.1002/mp.70242"
+        ],
+        "valid_dois": [
+          "10.1007/s11060-025-05060-7",
+          "10.4274/dir.2023.232442",
+          "10.1016/j.ijrobp.2025.03.037",
+          "10.1002/mp.70242"
+        ],
+        "invalid_dois": [],
+        "citation_integrity": true
+      },
+      "structure_validation": {
+        "sections": {
+          "## Answer": true,
+          "## Evidence": true,
+          "## Limitations": true,
+          "## Sources": true
+        },
+        "structure_complete": true
+      },
+      "source_usage": {
+        "retrieved_sources": 5,
+        "cited_sources": 4,
+        "retrieved_sources_used": 4,
+        "source_utilization": 0.8
+      },
+      "passed": true,
+      "retrieved_sources": [
+        {
+          "pmid": "40299247",
+          "title": "Temporospatial tumor dynamic changes in glioblastoma during radiotherapy.",
+          "doi": "10.1007/s11060-025-05060-7",
+          "year": "2025"
+        },
+        {
+          "pmid": "39999966",
+          "title": "A Radiologist's Guide to IDH-Wildtype Glioblastoma for Efficient Communication",
+          "doi": "10.3348/kjr.2024.0982",
+          "year": "2025"
+        },
+        {
+          "pmid": "37789677",
+          "title": "Reproducibility of rCBV in glioblastomas using T2*-weighted perfusion MRI: an",
+          "doi": "10.4274/dir.2023.232442",
+          "year": "2024"
+        },
+        {
+          "pmid": "41492035",
+          "title": "Image enhancement for accelerated MRI using a joint GAN and diffusion model",
+          "doi": "10.1002/mp.70242",
+          "year": "2026"
+        },
+        {
+          "pmid": "40158731",
+          "title": "Timing of Planning Magnetic Resonance Imaging and Patient Selection for Adaptive",
+          "doi": "10.1016/j.ijrobp.2025.03.037",
+          "year": "2025"
+        }
+      ],
+      "answer": "## Answer\n\nThe retrieved PubMed evidence is insufficient to answer this reliably.\n\nThe provided evidence focuses on technical MRI enhancement, inter-reader reproducibility of perfusion measurements, and tracking post-resection brain tissue movement for adaptive radiotherapy timing. None of the supplied studies provide data establishing how specific MRI parameters or protocols predict therapeutic response or clinical outcomes in glioblastoma patients.\n\nThe retrieved evidence describes related imaging applications and methodological considerations:\n- **Temporospatial tumor dynamics**: Understanding tumor changes and migration during radiotherapy is required to apply imaging parameters effectively to clinical practice [PMID: 40299247; DOI: 10.1007/s11060-025-05060-7].\n- **Perfusion MRI reproducibility**: Relative cerebral blood volume (rCBV) calculated from dynamic susceptibility contrast perfusion MRI (DSC-MRI) shows variable inter-reader reproducibility depending on reviewer experience level (neuroradiologist ICC: 0.527; 95% CI: 0.21–0.74; radiology resident ICC: 0.513; 95% CI: 0.20–0.73; cross-experience level ICC range: 0.296–0.335) [PMID: 37789677; DOI: 10.4274/dir.2023.232442].\n- **Adaptive radiotherapy planning**: Sequential MRI tracking of post-resection brain shifts (evaluated in a meta-analysis of 12 studies including 405 patients and prospective data from 17 patients) can inform optimal MRI timing for adaptive radiation therapy [PMID: 40158731; DOI: 10.1016/j.ijrobp.2025.03.037].\n- **Image acquisition enhancement**: Deep learning frameworks (RRENet) combining generative adversarial networks and diffusion models are being investigated to enhance low-quality accelerated MRI scans (evaluated on 72 paired 3D T2-weighted scans from 62 patients) to maintain registration accuracy for tumor targeting [PMID: 41492035; DOI: 10.1002/mp.70242].\n\n## Evidence\n\n- **Perfusion Measurement Reproducibility**: In a single-center retrospective study of 30 glioblastoma patients evaluated with 3.0T DSC-MRI, rCBV hotspot measurement reproducibility was moderate within specific reader groups (neuroradiologists ICC: 0.527 [95% CI: 0.21–0.74]; residents ICC: 0.513 [95% CI: 0.20–0.73]), but poor across readers of varying experience levels (ICC range: 0.296–0.335) [PMID: 37789677; DOI: 10.4274/dir.2023.232442].\n- **Tumor Migration & Dynamics**: High-grade tumor volume and position shift during radiation therapy, highlighting a need to define risk factors for tumor migration to guide clinical imaging application [PMID: 40299247; DOI: 10.1007/s11060-025-05060-7].\n- **Anatomical Tracking for Radiation Planning**: Nonlinear image registration across prospective MRIs from 17 high-grade glioma patients and a meta-analysis of 12 studies (405 patients) quantified post-resection brain morphology shifts to optimize MRI timing for adaptive radiation therapy [PMID: 40158731; DOI: 10.1016/j.ijrobp.2025.03.037].\n- **Accelerated MRI Enhancement**: A joint GAN and diffusion network (RRENet) trained on 72 paired T2-weighted MRI scans from 62 glioma patients demonstrated potential to improve image resolution and target registration accuracy for accelerated MR-guided radiotherapy protocols [PMID: 41492035; DOI: 10.1002/mp.70242].\n\n## Limitations\n\n- **Lack of Predictive Clinical Outcome Data**: None of the provided abstracts contained evidence linking MRI parameters (such as rCBV, diffusion metrics, or dynamic structural shifts) to treatment response endpoints (e.g., progression-free survival, overall survival, or post-treatment response criteria).\n- **Measurement Variability**: Quantitative perfusion parameters (rCBV) derived from DSC-MRI display significant inter-reader inconsistency when measured by individuals with differing levels of subspecialty experience [PMID: 37789677; DOI: 10.4274/dir.2023.232442].\n- **Small Sample Sizes**: Prospective imaging validation studies reported small patient cohorts (e.g., 17 patients in prospective morphology tracking [PMID: 40158731; DOI: 10.1016/j.ijrobp.2025.03.037] and 30 patients in perfusion reproducibility analysis [PMID: 37789677; DOI: 10.4274/dir.2023.232442]).\n\n## Sources\n\n- [PMID: 40299247; DOI: 10.1007/s11060-025-05060-7]\n- [PMID: 37789677; DOI: 10.4274/dir.2023.232442]\n- [PMID: 40158731; DOI: 10.1016/j.ijrobp.2025.03.037]\n- [PMID: 41492035; DOI: 10.1002/mp.70242]"
+    },
+    {
+      "id": "Q05",
+      "question": "What imaging features are associated with glioma molecular characteristics?",
+      "retrieval_time_seconds": 6.29696619999595,
+      "generation_time_seconds": 25.03948360006325,
+      "answer_length": 3772,
+      "citation_validation": {
+        "cited_pmids": [
+          "41428044",
+          "40338482",
+          "38057447",
+          "32912874",
+          "29668342"
+        ],
+        "valid_pmids": [
+          "41428044",
+          "40338482",
+          "38057447",
+          "32912874",
+          "29668342"
+        ],
+        "invalid_pmids": [],
+        "cited_dois": [
+          "10.1007/s00330-025-12211-x",
+          "10.3174/ajnr.A6769",
+          "10.1007/s11060-025-05043-8",
+          "10.1080/10408363.2018.1462759",
+          "10.1007/s11517-023-02971-3"
+        ],
+        "valid_dois": [
+          "10.1007/s00330-025-12211-x",
+          "10.3174/ajnr.A6769",
+          "10.1007/s11060-025-05043-8",
+          "10.1080/10408363.2018.1462759",
+          "10.1007/s11517-023-02971-3"
+        ],
+        "invalid_dois": [],
+        "citation_integrity": true
+      },
+      "structure_validation": {
+        "sections": {
+          "## Answer": true,
+          "## Evidence": true,
+          "## Limitations": true,
+          "## Sources": true
+        },
+        "structure_complete": true
+      },
+      "source_usage": {
+        "retrieved_sources": 5,
+        "cited_sources": 5,
+        "retrieved_sources_used": 5,
+        "source_utilization": 1.0
+      },
+      "passed": true,
+      "retrieved_sources": [
+        {
+          "pmid": "41428044",
+          "title": "Predicting molecular types of adult-type diffuse gliomas based on MRI reports",
+          "doi": "10.1007/s00330-025-12211-x",
+          "year": "2026"
+        },
+        {
+          "pmid": "32912874",
+          "title": "Neuro-Oncology and Radiogenomics: Time to Integrate?",
+          "doi": "10.3174/ajnr.A6769",
+          "year": "2020"
+        },
+        {
+          "pmid": "40338482",
+          "title": "Congress of neurological surgeons systematic review and evidence-based",
+          "doi": "10.1007/s11060-025-05043-8",
+          "year": "2025"
+        },
+        {
+          "pmid": "29668342",
+          "title": "Sequencing the next generation of glioblastomas.",
+          "doi": "10.1080/10408363.2018.1462759",
+          "year": "2018"
+        },
+        {
+          "pmid": "38057447",
+          "title": "Magnetic resonance imaging and deoxyribonucleic acid methylation-based",
+          "doi": "10.1007/s11517-023-02971-3",
+          "year": "2024"
+        }
+      ],
+      "answer": "## Answer\n\nThe retrieved PubMed evidence is insufficient to answer this reliably.\n\nWhile the provided literature establishes that radiogenomics, deep learning models, and large language models (LLMs) use magnetic resonance imaging (MRI) data and reports to assist in predicting molecular characteristics—such as *IDH1/2* mutations, *MGMT* promoter methylation, DNA methylation profiles, and WHO 2021 molecular classifications (oligodendrogliomas, *IDH*-mutant astrocytomas, and *IDH*-wildtype glioblastomas)—the retrieved studies do not describe specific individual morphological or semantic imaging features (e.g., contrast enhancement patterns, T2-FLAIR mismatch, necrosis, or non-enhancing volume) linked to distinct molecular alterations [PMID: 41428044; PMID: 32912874; PMID: 29668342; PMID: 38057447].\n\nThe evidence highlights the general imaging modalities and quantitative techniques used to evaluate molecular status:\n* **Diffusion and Perfusion MRI:** Advanced sequences such as diffusion-weighted imaging (DWI) and perfusion-weighted imaging (dynamic susceptibility contrast [DSC], dynamic contrast enhancement [DCE], and arterial spin labeling [ASL]) are suggested for acquiring genomic, prognostic, and grading information in Grade II diffuse gliomas [PMID: 40338482].\n* **Deep Learning Radiomics on Contrast-Enhanced MRI:** Deep learning models (e.g., ResNet3D-18) extract radiomic features from gadolinium-enhanced T1-weighted images (Gd-T1WI) to combine with DNA methylation-seq data for overall survival prediction in glioblastoma [PMID: 38057447].\n* **Radiology Reports & LLMs:** Structured MRI radiology reports containing imaging findings can be interpreted by LLMs (with accuracy up to 79.5% when supplied with knowledge-based prompts) to classify diffuse gliomas into molecular subtypes [PMID: 41428044].\n\n## Evidence\n\n* **Advanced MRI Sequences:** Diffusion imaging and perfusion sequences (DSC, DCE, ASL) provide valuable information regarding genomics and prognosis in WHO Grade II diffuse gliomas [PMID: 40338482].\n* **Radiomic Models:** Radiomic features extracted from Gd-T1WI MRI, when paired with DNA methylation data, produced prognostic models for glioblastoma 1-year overall survival with validation area under the curve (AUC) values up to 0.835 for the radiogenomic set and 0.885 for a combined nomogram [PMID: 38057447].\n* **Molecular Classification via LLMs:** LLMs (such as GPT-4o-mini and Qwen2.5 7B) classified adult-type diffuse gliomas into oligodendrogliomas, *IDH*-mutant astrocytomas, and *IDH*-wildtype glioblastomas using MRI reports with accuracy ranging between 73.2% and 79.5% under knowledge-based prompting [PMID: 41428044].\n* **Radiogenomic Integration:** Radiogenomic approaches aim to non-invasively map MRI characteristics to mutational profiles (including *IDH1/2*, *MGMT*, *TP53*, *TERT*, *PTEN*, *EGFR*, and *PDGFRA*) [PMID: 32912874; PMID: 29668342].\n\n## Limitations\n\n* **Lack of Feature Granularity:** The evidence does not list or define specific qualitative image descriptors (e.g., signal intensities, tumor borders, or enhancement geometry) associated with specific genetic mutations.\n* **Clinical Translation Deficit:** There is a recognized gap between radiogenomic research and clinical implementation [PMID: 32912874].\n* **Tumor Heterogeneity:** Inter- and intra-tumor heterogeneity, as well as treatment-induced hypermutation, complicate the direct mapping of imaging phenotypes to mutational profiles in glioblastoma [PMID: 29668342].\n\n## Sources\n\n* [PMID: 41428044; DOI: 10.1007/s00330-025-12211-x]\n* [PMID: 32912874; DOI: 10.3174/ajnr.A6769]\n* [PMID: 40338482; DOI: 10.1007/s11060-025-05043-8]\n* [PMID: 29668342; DOI: 10.1080/10408363.2018.1462759]\n* [PMID: 38057447; DOI: 10.1007/s11517-023-02971-3]"
+    },
+    {
+      "id": "Q06",
+      "question": "What deep learning methods are used for glioblastoma classification?",
+      "retrieval_time_seconds": 10.623319200007245,
+      "generation_time_seconds": 40.79606040008366,
+      "answer_length": 1915,
+      "citation_validation": {
+        "cited_pmids": [
+          "38941861",
+          "40722008",
+          "40344143"
+        ],
+        "valid_pmids": [
+          "38941861",
+          "40722008",
+          "40344143"
+        ],
+        "invalid_pmids": [],
+        "cited_dois": [
+          "10.1016/j.cmpb.2024.108288"
+        ],
+        "valid_dois": [
+          "10.1016/j.cmpb.2024.108288"
+        ],
+        "invalid_dois": [],
+        "citation_integrity": true
+      },
+      "structure_validation": {
+        "sections": {
+          "## Answer": true,
+          "## Evidence": true,
+          "## Limitations": true,
+          "## Sources": true
+        },
+        "structure_complete": true
+      },
+      "source_usage": {
+        "retrieved_sources": 5,
+        "cited_sources": 3,
+        "retrieved_sources_used": 3,
+        "source_utilization": 0.6
+      },
+      "passed": true,
+      "retrieved_sources": [
+        {
+          "pmid": "38941861",
+          "title": "Differentiation of glioblastoma from solitary brain metastasis using deep",
+          "doi": "10.1016/j.cmpb.2024.108288",
+          "year": "2024"
+        },
+        {
+          "pmid": "40722008",
+          "title": "Prediction of 1p/19q state in glioma by integrated deep learning method based on",
+          "doi": "10.1186/s12885-025-14454-9",
+          "year": "2025"
+        },
+        {
+          "pmid": "35345331",
+          "title": "Deep learning quantification of vascular pharmacokinetic parameters in mouse",
+          "doi": "10.31083/j.fbl2703099",
+          "year": "2022"
+        },
+        {
+          "pmid": "36692205",
+          "title": "Deep Learning for Noninvasive Assessment of H3 K27M Mutation Status in Diffuse",
+          "doi": "10.1002/jmri.28606",
+          "year": "2023"
+        },
+        {
+          "pmid": "40344143",
+          "title": "Brain tumor classification using MRI images and deep learning techniques.",
+          "doi": "10.1371/journal.pone.0322624",
+          "year": "2025"
+        }
+      ],
+      "answer": "## Answer\n\nBased on the provided PubMed evidence, the specific deep learning approach evaluated for glioblastoma classification involves:\n\n* **DenseNet121-based Deep Ensembles:** A deep ensemble model utilizing the DenseNet121 architecture trained on multiparametric magnetic resonance imaging (MRI) was developed to differentiate glioblastoma (GBM) from solitary brain metastasis (SBM) by providing predictive uncertainty estimates and model interpretability [PMID: 38941861; DOI: 10.1016/j.cmpb.2024.108288].\n\nThe remaining retrieved literature focuses on other glioma types or non-classification tasks (such as 1p/19q state prediction in lower-grade glioma, H3 K27M mutation prediction in diffuse midline glioma, or mouse model pharmacokinetic parameter mapping) [PMID: 40722008; PMID: 35345331; PMID: 36692205].\n\n---\n\n## Evidence\n\n* **DenseNet121 Deep Ensembles for GBM vs. SBM Differentiation:** In an institutional study of 469 patients (300 with GBM and 169 with SBM) for training and an external test set of 143 patients (101 with GBM and 42 with SBM), deep ensembles built on DenseNet121 were trained on multiparametric MRI to classify and differentiate glioblastoma from solitary brain metastasis [PMID: 38941861; DOI: 10.1016/j.cmpb.2024.108288].\n\n---\n\n## Limitations\n\n* The retrieved evidence directly addressing deep learning methods for glioblastoma classification is limited to a single study distinguishing glioblastoma from solitary brain metastasis using DenseNet121-based deep ensembles [PMID: 38941861; DOI: 10.1016/j.cmpb.2024.108288].\n* Quantitative performance metrics (such as accuracy, sensitivity, specificity, or area under the curve) for the glioblastoma classification model were not provided in the abstract text.\n* One retrieved record provided only a title without abstract text or model details [PMID: 40344143].\n\n---\n\n## Sources\n\n* [PMID: 38941861; DOI: 10.1016/j.cmpb.2024.108288]"
+    },
+    {
+      "id": "Q07",
+      "question": "How is radiogenomics applied to brain tumor imaging?",
+      "retrieval_time_seconds": 3.8506011001300067,
+      "generation_time_seconds": 53.607660399982706,
+      "answer_length": 3878,
+      "citation_validation": {
+        "cited_pmids": [
+          "30667332",
+          "28981352",
+          "37797481"
+        ],
+        "valid_pmids": [
+          "30667332",
+          "28981352",
+          "37797481"
+        ],
+        "invalid_pmids": [],
+        "cited_dois": [
+          "10.1148/radiol.2018181928",
+          "10.2214/AJR.17.18754",
+          "10.1016/j.media.2023.102964"
+        ],
+        "valid_dois": [
+          "10.1148/radiol.2018181928",
+          "10.2214/AJR.17.18754",
+          "10.1016/j.media.2023.102964"
+        ],
+        "invalid_dois": [],
+        "citation_integrity": true
+      },
+      "structure_validation": {
+        "sections": {
+          "## Answer": true,
+          "## Evidence": true,
+          "## Limitations": true,
+          "## Sources": true
+        },
+        "structure_complete": true
+      },
+      "source_usage": {
+        "retrieved_sources": 5,
+        "cited_sources": 3,
+        "retrieved_sources_used": 3,
+        "source_utilization": 0.6
+      },
+      "passed": true,
+      "retrieved_sources": [
+        {
+          "pmid": "30667332",
+          "title": "Emerging Applications of Artificial Intelligence in Neuro-Oncology.",
+          "doi": "10.1148/radiol.2018181928",
+          "year": "2019"
+        },
+        {
+          "pmid": "38669717",
+          "title": "Brain tumor detection using proper orthogonal decomposition integrated with deep",
+          "doi": "10.1016/j.cmpb.2024.108167",
+          "year": "2024"
+        },
+        {
+          "pmid": "28981352",
+          "title": "Imaging Genetic Heterogeneity in Glioblastoma and Other Glial Tumors: Review of",
+          "doi": "10.2214/AJR.17.18754",
+          "year": "2018"
+        },
+        {
+          "pmid": "37797481",
+          "title": "Tumor radiogenomics in gliomas with Bayesian layered variable selection.",
+          "doi": "10.1016/j.media.2023.102964",
+          "year": "2023"
+        },
+        {
+          "pmid": "31456318",
+          "title": "Imaging signatures of glioblastoma molecular characteristics: A radiogenomics",
+          "doi": "10.1002/jmri.26907",
+          "year": "2020"
+        }
+      ],
+      "answer": "## Answer\n\nRadiogenomics applies artificial intelligence (AI), statistical modeling, and machine learning to magnetic resonance imaging (MRI) and genomic data to noninvasively evaluate brain tumors. In neuro-oncology, radiogenomic approaches aim to noninvasively sample the tumor's molecular environment, capture spatial and genetic heterogeneity, stratify patients into diagnostic and therapeutic pathways, and support dynamic treatment monitoring [PMID: 30667332; DOI: 10.1148/radiol.2018181928] [PMID: 28981352; DOI: 10.2214/AJR.17.18754].\n\nSpecific applications reported in the evidence include:\n* Noninvasively characterizing genetic heterogeneity to bypass diagnostic delays associated with tissue biopsy planning and pathological analysis [PMID: 28981352; DOI: 10.2214/AJR.17.18754].\n* Delineating infiltrating tumor margins in diffuse gliomas [PMID: 30667332; DOI: 10.1148/radiol.2018181928].\n* Differentiating pseudoprogression from true tumor progression [PMID: 30667332; DOI: 10.1148/radiol.2018181928].\n* Predicting tumor recurrence and overall survival [PMID: 30667332; DOI: 10.1148/radiol.2018181928].\n* Modeling tumor evolution and structural heterogeneity in lower-grade gliomas (LGG) by analyzing MRI data across concentric spherical tumor layers alongside genomic data [PMID: 37797481; DOI: 10.1016/j.media.2023.102964].\n\n---\n\n## Evidence\n\n* **Noninvasive Molecular and Spatial Sampling:** AI-based radiomics and radiogenomics extract in vivo markers from conventional and advanced MRI datasets. These markers allow noninvasive sampling of the molecular environment at high spatial resolution, providing a systems-level understanding of heterogeneous cellular and molecular processes in neuro-oncology [PMID: 30667332; DOI: 10.1148/radiol.2018181928].\n* **Alternative to Biopsy Delays:** Although surgical biopsy remains the reference standard for determining glioma genetics, it can encounter diagnostic delays due to surgical scheduling and pathology assessment. Radiogenomics provides a low-risk, rapid mechanism to survey the tumoral environment and evaluate genetic heterogeneity [PMID: 28981352; DOI: 10.2214/AJR.17.18754].\n* **Clinical Task Performance:** AI algorithms applied to MRI data demonstrate superior capabilities compared to conventional clinical methods in distinguishing true progression from pseudoprogression, predicting survival and recurrence, and delineating diffuse glioma margins [PMID: 30667332; DOI: 10.1148/radiol.2018181928].\n* **Radiogenomic Frameworks for Tumor Heterogeneity:** Specialized statistical frameworks evaluate radiogenomic associations in lower-grade gliomas by partitioning the tumor region into concentric spherical layers to mimic tumor evolution. Within each layer, voxel-intensity-based probability density functions are used to capture detailed spatial heterogeneity from MRI data [PMID: 37797481; DOI: 10.1016/j.media.2023.102964].\n\n---\n\n## Limitations\n\n* **Clinical Translation and Validation:** Substantial practical challenges remain before radiogenomic tools can be fully integrated into standard clinical workflows, requiring further algorithm development and clinical validation [PMID: 30667332; DOI: 10.1148/radiol.2018181928].\n* **Reference Standard Dependence:** Surgical biopsy remains the clinical reference standard for establishing molecular genetic diagnosis, meaning radiogenomic predictions serve as complementary or surrogate markers rather than standard replacements [PMID: 28981352; DOI: 10.2214/AJR.17.18754].\n* **Evidence Base Constraints:** Several retrieved items (e.g., PMID: 38669717, PMID: 31456318) lacked detailed abstract text within the provided evidence set, limiting evaluation to available abstracted literature.\n\n---\n\n## Sources\n\n* PMID: 30667332; DOI: 10.1148/radiol.2018181928\n* PMID: 28981352; DOI: 10.2214/AJR.17.18754\n* PMID: 37797481; DOI: 10.1016/j.media.2023.102964"
+    },
+    {
+      "id": "Q08",
+      "question": "What MRI techniques are useful for monitoring glioblastoma treatment response?",
+      "retrieval_time_seconds": 10.1869624000974,
+      "generation_time_seconds": 22.086285299854353,
+      "answer_length": 3817,
+      "citation_validation": {
+        "cited_pmids": [
+          "40720688",
+          "37789677",
+          "39905844"
+        ],
+        "valid_pmids": [
+          "40720688",
+          "37789677",
+          "39905844"
+        ],
+        "invalid_pmids": [],
+        "cited_dois": [
+          "10.4274/dir.2023.232442",
+          "10.1177/02841851241310392"
+        ],
+        "valid_dois": [
+          "10.4274/dir.2023.232442",
+          "10.1177/02841851241310392"
+        ],
+        "invalid_dois": [],
+        "citation_integrity": true
+      },
+      "structure_validation": {
+        "sections": {
+          "## Answer": true,
+          "## Evidence": true,
+          "## Limitations": true,
+          "## Sources": true
+        },
+        "structure_complete": true
+      },
+      "source_usage": {
+        "retrieved_sources": 5,
+        "cited_sources": 3,
+        "retrieved_sources_used": 3,
+        "source_utilization": 0.6
+      },
+      "passed": true,
+      "retrieved_sources": [
+        {
+          "pmid": "37789677",
+          "title": "Reproducibility of rCBV in glioblastomas using T2*-weighted perfusion MRI: an",
+          "doi": "10.4274/dir.2023.232442",
+          "year": "2024"
+        },
+        {
+          "pmid": "40720688",
+          "title": "Glioblastoma: Epidemiology and Imaging-Based Review.",
+          "doi": "",
+          "year": "2013"
+        },
+        {
+          "pmid": "40158731",
+          "title": "Timing of Planning Magnetic Resonance Imaging and Patient Selection for Adaptive",
+          "doi": "10.1016/j.ijrobp.2025.03.037",
+          "year": "2025"
+        },
+        {
+          "pmid": "41492035",
+          "title": "Image enhancement for accelerated MRI using a joint GAN and diffusion model",
+          "doi": "10.1002/mp.70242",
+          "year": "2026"
+        },
+        {
+          "pmid": "39905844",
+          "title": "Diagnostic value and efficacy of multimodal magnetic resonance imaging in",
+          "doi": "10.1177/02841851241310392",
+          "year": "2025"
+        }
+      ],
+      "answer": "## Answer\n\nStandard anatomic magnetic resonance imaging (MRI) sequences—including T1-weighted, T2-weighted, and fluid-attenuated inversion recovery (FLAIR)—are considered the gold standard for diagnosing glioblastoma [PMID: 40720688]. However, anatomic MRI has limited accuracy for evaluating treatment response because post-treatment phenomena such as pseudoprogression and radionecrosis can closely mimic true tumor progression [PMID: 40720688].\n\nTo overcome these limitations, several advanced advanced physiologic MRI techniques are useful for monitoring glioblastoma treatment response and differentiating recurrent tumor from treatment-related changes:\n\n* **Diffusion-Weighted Imaging (DWI) and Diffusion Tensor Imaging (DTI):** Measure tissue microstructure and water diffusion parameters, such as fractional anisotropy (FA) and apparent diffusion coefficient (ADC) [PMID: 40720688; PMID: 39905844].\n* **MR Perfusion / Dynamic Susceptibility Contrast (DSC) Perfusion MRI:** Evaluates tumor vascularity through metrics such as relative cerebral blood volume (rCBV) and relative cerebral blood flow (rCBF) [PMID: 37789677; PMID: 40720688; PMID: 39905844].\n* **Magnetic Resonance Spectroscopy (MRS):** Assesses metabolic profiles, specifically evaluating metabolite ratios including choline/N-acetylaspartate (Cho/NAA) and choline/creatine (Cho/Cr) [PMID: 40720688; PMID: 39905844].\n\nMultiparametric approaches that integrate DSC-MRI, DTI, and MRS have demonstrated utility in distinguishing post-radiation necrosis from true recurrent tumor [PMID: 39905844].\n\n---\n\n## Evidence\n\n* **Anatomic vs. Advanced MRI:** A review on glioblastoma reported that standard anatomic MRI (T1, T2, FLAIR) has lower accuracy in evaluating treatment response due to pseudoprogression and radionecrosis mimicking tumor progression. Advanced imaging methods offering physiologic information—including DWI, MR perfusion, and MRS—show promise for aiding treatment response monitoring [PMID: 40720688].\n* **DSC-Perfusion MRI & Reproducibility:** In a retrospective study of 30 glioblastoma patients evaluated at 3.0T MRI using T2*-weighted DSC-MRI, rCBV measurements were assessed for inter-reader reproducibility. Intra-group reproducibility was moderate among neuroradiologists (ICC: 0.527; 95% CI: 0.21–0.74) and radiology residents (ICC: 0.513; 95% CI: 0.20–0.73), whereas inter-group agreement across varying experience levels was poor (ICC: 0.296–0.335) [PMID: 37789677; DOI: 10.4274/dir.2023.232442].\n* **Multimodal MRI (DSC, DTI, MRS):** A study of glioma patients with post-radiation enhancing lesions evaluated 34 recurrent tumor cases and 25 radiation necrosis cases. Multiparametric evaluation demonstrated statistically significant differences between recurrent tumor and radiation necrosis for FA, rCBF, rCBV, Cho/NAA, and Cho/Cr ($P < 0.05$) [PMID: 39905844; DOI: 10.1177/02841851241310392].\n\n---\n\n## Limitations\n\n* **Accuracy of Anatomic MRI:** Standard anatomical sequences (T1, T2, FLAIR) cannot reliably differentiate true tumor progression from treatment-induced effects like pseudoprogression and radionecrosis [PMID: 40720688].\n* **Inter-Reader Variability:** Quantitative perfusion parameters such as rCBV derived from DSC-MRI demonstrate poor inter-reader reproducibility across readers with differing experience levels (ICC range: 0.296–0.335) [PMID: 37789677; DOI: 10.4274/dir.2023.232442].\n* **Sample Size Constraints:** Available single-center quantitative MRI diagnostic studies evaluating rCBV and multimodal differentiation between radiation necrosis and recurrence relied on small patient cohorts (e.g., 30 patients [PMID: 37789677] and 59 patients [PMID: 39905844]).\n\n---\n\n## Sources\n\n* [PMID: 40720688]\n* [PMID: 37789677; DOI: 10.4274/dir.2023.232442]\n* [PMID: 39905844; DOI: 10.1177/02841851241310392]"
+    },
+    {
+      "id": "Q09",
+      "question": "What role does IDH status play in glioma imaging research?",
+      "retrieval_time_seconds": 6.987017299979925,
+      "generation_time_seconds": 14.695647199871019,
+      "answer_length": 2200,
+      "citation_validation": {
+        "cited_pmids": [
+          "39874812",
+          "35743228",
+          "35027006"
+        ],
+        "valid_pmids": [
+          "39874812",
+          "35743228",
+          "35027006"
+        ],
+        "invalid_pmids": [],
+        "cited_dois": [
+          "10.1016/j.compbiomed.2025.109736",
+          "10.3390/ijms23126787"
+        ],
+        "valid_dois": [
+          "10.1016/j.compbiomed.2025.109736",
+          "10.3390/ijms23126787"
+        ],
+        "invalid_dois": [],
+        "citation_integrity": true
+      },
+      "structure_validation": {
+        "sections": {
+          "## Answer": true,
+          "## Evidence": true,
+          "## Limitations": true,
+          "## Sources": true
+        },
+        "structure_complete": true
+      },
+      "source_usage": {
+        "retrieved_sources": 5,
+        "cited_sources": 3,
+        "retrieved_sources_used": 3,
+        "source_utilization": 0.6
+      },
+      "passed": true,
+      "retrieved_sources": [
+        {
+          "pmid": "40748516",
+          "title": "Single center experience of IDH inhibitors in recurrent high-grade gliomas.",
+          "doi": "10.1007/s11060-025-05183-x",
+          "year": "2025"
+        },
+        {
+          "pmid": "35743228",
+          "title": "The Value of FET PET/CT in Recurrent Glioma with a Different IDH Mutation",
+          "doi": "10.3390/ijms23126787",
+          "year": "2022"
+        },
+        {
+          "pmid": "40479721",
+          "title": "Low-grade IDH-mutant gliomas: from standard post-surgical treatments to novel",
+          "doi": "10.1080/14656566.2025.2516617",
+          "year": "2025"
+        },
+        {
+          "pmid": "35027006",
+          "title": "Large tumour volume reduction of IDH-mutated anaplastic glioma involving the",
+          "doi": "10.1186/s12883-021-02548-3",
+          "year": "2022"
+        },
+        {
+          "pmid": "39874812",
+          "title": "Detecting IDH and TERTp mutations in diffuse gliomas using (1)H-MRS with",
+          "doi": "10.1016/j.compbiomed.2025.109736",
+          "year": "2025"
+        }
+      ],
+      "answer": "## Answer\n\nIn glioma imaging research, IDH status serves as a key molecular target for non-invasive diagnostic prediction, classification, and monitoring using specialized imaging modalities combined with machine learning techniques. \n\nResearch shows that IDH mutation status in hemispheric diffuse gliomas can be accurately predicted non-invasively through proton magnetic resonance spectroscopy ($^1$H-MRS) coupled with deep learning architectures [PMID: 39874812; DOI: 10.1016/j.compbiomed.2025.109736]. Additionally, advanced molecular imaging modalities like FET PET/CT are used to evaluate recurrent gliomas categorized by different IDH mutation profiles [PMID: 35743228; DOI: 10.3390/ijms23126787].\n\n## Evidence\n\n- **Non-invasive IDH Mutation Detection via $^1$H-MRS**: Deep learning models can extract relevant features from $^1$H-MRS spectra without manual feature extraction to accurately predict IDH mutational subgroups in hemispheric diffuse gliomas [PMID: 39874812; DOI: 10.1016/j.compbiomed.2025.109736].\n  - The Attention-based Deep Spectral Network (ADSN) model achieved an F1-score of 93% on the validation set and 88% on the test set for detecting IDH mutations [PMID: 39874812; DOI: 10.1016/j.compbiomed.2025.109736].\n  - Model decision-making processes were evaluated and interpreted using the Gradient-weighted Class Activation Mapping (Grad-CAM) technique [PMID: 39874812; DOI: 10.1016/j.compbiomed.2025.109736].\n- **FET PET/CT Imaging**: FET PET/CT is studied to determine its utility in evaluating recurrent gliomas presenting with distinct IDH mutations [PMID: 35743228; DOI: 10.3390/ijms23126787].\n\n## Limitations\n\n- Several retrieved records contained only article titles without detailed study abstracts or numerical outcome data, limiting the synthesis of specific findings for modalities like FET PET/CT [PMID: 35743228] or volume reduction measurements [PMID: 35027006].\n- Detailed quantitative metrics regarding imaging performance for IDH detection in the provided evidence were restricted to a single $^1$H-MRS deep learning study [PMID: 39874812].\n\n## Sources\n\n- [PMID: 39874812; DOI: 10.1016/j.compbiomed.2025.109736]\n- [PMID: 35743228; DOI: 10.3390/ijms23126787]"
+    },
+    {
+      "id": "Q10",
+      "question": "What machine learning approaches are used in brain neoplasm research?",
+      "retrieval_time_seconds": 10.653898499906063,
+      "generation_time_seconds": 46.44300889992155,
+      "answer_length": 4106,
+      "citation_validation": {
+        "cited_pmids": [
+          "35009911",
+          "40344143",
+          "39948696",
+          "38689289",
+          "36691030"
+        ],
+        "valid_pmids": [
+          "35009911",
+          "40344143",
+          "39948696",
+          "38689289",
+          "36691030"
+        ],
+        "invalid_pmids": [],
+        "cited_dois": [
+          "10.3390/s22010372",
+          "10.1186/s12911-024-02519-x",
+          "10.1371/journal.pone.0322624",
+          "10.1002/nbm.70001",
+          "10.1186/s12911-023-02114-6"
+        ],
+        "valid_dois": [
+          "10.3390/s22010372",
+          "10.1186/s12911-024-02519-x",
+          "10.1371/journal.pone.0322624",
+          "10.1002/nbm.70001",
+          "10.1186/s12911-023-02114-6"
+        ],
+        "invalid_dois": [],
+        "citation_integrity": true
+      },
+      "structure_validation": {
+        "sections": {
+          "## Answer": true,
+          "## Evidence": true,
+          "## Limitations": true,
+          "## Sources": true
+        },
+        "structure_complete": true
+      },
+      "source_usage": {
+        "retrieved_sources": 5,
+        "cited_sources": 5,
+        "retrieved_sources_used": 5,
+        "source_utilization": 1.0
+      },
+      "passed": true,
+      "retrieved_sources": [
+        {
+          "pmid": "35009911",
+          "title": "Brain Tumor/Mass Classification Framework Using Magnetic-Resonance-Imaging-Based",
+          "doi": "10.3390/s22010372",
+          "year": "2022"
+        },
+        {
+          "pmid": "38689289",
+          "title": "Advanced AI-driven approach for enhanced brain tumor detection from MRI images",
+          "doi": "10.1186/s12911-024-02519-x",
+          "year": "2024"
+        },
+        {
+          "pmid": "40344143",
+          "title": "Brain tumor classification using MRI images and deep learning techniques.",
+          "doi": "10.1371/journal.pone.0322624",
+          "year": "2025"
+        },
+        {
+          "pmid": "39948696",
+          "title": "Revolutionizing Brain Tumor Detection Using Explainable AI in MRI Images.",
+          "doi": "10.1002/nbm.70001",
+          "year": "2025"
+        },
+        {
+          "pmid": "36691030",
+          "title": "MRI-based brain tumor detection using convolutional deep learning methods and",
+          "doi": "10.1186/s12911-023-02114-6",
+          "year": "2023"
+        }
+      ],
+      "answer": "## Answer\n\nIn brain neoplasm research utilizing magnetic resonance imaging (MRI), machine learning approaches primarily center on deep learning (DL) models—specifically Convolutional Neural Networks (CNNs) and advanced computer vision architectures—for brain tumor detection, classification, and localization. \n\nThe machine learning approaches identified in the provided research include:\n- **Transfer Deep Learning and Custom CNNs:** Utilizing isolated CNN architectures built from scratch or re-utilizing binary CNN models via transfer learning to fine-tune weights for multi-class tumor identification (e.g., glioma, meningioma, pituitary) [PMID: 35009911].\n- **Pretrained CNN Architectures with Fine-Tuning:** Fine-tuning pretrained models such as VGG16 in combination with data augmentation strategies [PMID: 40344143], as well as DenseNet121-derived frameworks combined with Explainable AI (XAI) tools like Grad-CAM++ for localization [PMID: 39948696].\n- **EfficientNet Architectures:** Applying EfficientNetB2 alongside specific preprocessing pipelines (image cropping, histogram equalization, and homomorphic filtering) [PMID: 38689289].\n- **2D CNNs and Auto-Encoders:** Comparing 2D CNNs against auto-encoder models to optimize execution latency and structural complexity [PMID: 36691030].\n- **Advanced Vision Architectures:** Evaluating specialized vision models including Vision Transformers (ViT), ConvNeXt, MobileNetV3, FastViT, and InternImage [PMID: 39948696].\n\n---\n\n## Evidence\n\n- **Transfer Deep Learning Model:** A 22-layer binary CNN model constructed from scratch was adapted through transfer learning to classify MRI images into tumor subclasses (glioma, meningioma, and pituitary), achieving a classification accuracy of 95.75% for MRI scans from the same MRI machine [PMID: 35009911; DOI: 10.3390/s22010372].\n- **EfficientNetB2 and Image Preprocessing:** An AI methodology incorporating the EfficientNetB2 architecture was paired with preprocessing methods (image cropping, equalization, and homomorphic filters) to improve tumor detection from noisy and variable-quality MRI scans [PMID: 38689289; DOI: 10.1186/s12911-024-02519-x].\n- **Pretrained VGG16 Framework:** A CNN system based on a pretrained VGG16 base model combined with fine-tuning and data augmentation (generating a dataset of 17,136 MRI images) achieved an accuracy of 99.24% in distinguishing glioma, meningioma, pituitary tumors, and normal brain scans [PMID: 40344143; DOI: 10.1371/journal.pone.0322624].\n- **DenseNet121 with Explainable AI (XAI):** A modified DenseNet121 framework integrated with Grad-CAM++ achieved accuracy rates of 98.4% and 99.3% on two separate datasets, outperforming 12 baseline CNNs and 5 vision architectures (Vision Transformer, ConvNeXt, MobileNetV3, FastViT, and InternImage) [PMID: 39948696; DOI: 10.1002/nbm.70001].\n- **2D CNN vs. Auto-Encoder Networks:** A 2D CNN achieved optimal execution speed without latency and showed statistically significant performance differences compared to several other machine learning methods (p < 0.05), proving less complex than auto-encoder models [PMID: 36691030; DOI: 10.1186/s12911-023-02114-6].\n\n---\n\n## Limitations\n\n- **Image Quality and Artifacts:** Traditional machine learning approaches struggle when evaluating complex MRI scans susceptible to noise, variable image quality, and similarities between healthy tissue and tumor regions [PMID: 38689289, PMID: 39948696].\n- **Hardware-Specific Generalizability:** Accuracy gains in transfer-learned models may be tied to hardware consistency; one study reported an accuracy of 95.75% specifically on MRI images obtained from the same MRI machine [PMID: 35009911].\n- **Architectural Complexity:** Certain models, such as auto-encoder networks, present higher architectural complexity compared to simpler 2D CNNs [PMID: 36691030].\n\n---\n\n## Sources\n\n- [PMID: 35009911; DOI: 10.3390/s22010372]\n- [PMID: 38689289; DOI: 10.1186/s12911-024-02519-x]\n- [PMID: 40344143; DOI: 10.1371/journal.pone.0322624]\n- [PMID: 39948696; DOI: 10.1002/nbm.70001]\n- [PMID: 36691030; DOI: 10.1186/s12911-023-02114-6]"
+    }
+  ]
+}

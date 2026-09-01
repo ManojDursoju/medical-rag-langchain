@@ -1,43 +1,29 @@
-"""
-Medical Evidence Selector
-
-Purpose:
-    Select diverse, high-quality evidence from reranked candidates.
-
-Pipeline:
-    FAISS + BM25
-        ↓
-    RRF
-        ↓
-    Reranker
-        ↓
-    Evidence Selector
-        ↓
-    Diverse evidence for LLM
-"""
-
 from __future__ import annotations
 
-from pathlib import Path
-import pickle
+from reranker import (
+    MedicalReranker,
+)
+from retriever import (
+    MedicalRetriever,
+)
 
-from reranker import MedicalReranker
 
-
-# ---------------------------------------------------------------------
+# ============================================================
 # Configuration
-# ---------------------------------------------------------------------
+# ============================================================
 
-CANDIDATE_K = 20
+CANDIDATE_K = 30
+
+RERANK_K = 15
+
 FINAL_EVIDENCE_K = 5
 
-# Prefer different publications.
 MAX_CHUNKS_PER_PMID = 1
 
 
-# ---------------------------------------------------------------------
-# Evidence Selector
-# ---------------------------------------------------------------------
+# ============================================================
+# Evidence selector
+# ============================================================
 
 class EvidenceSelector:
 
@@ -48,45 +34,48 @@ class EvidenceSelector:
     ):
 
         self.reranker = reranker
+
         self.final_k = final_k
 
-    # -----------------------------------------------------------------
-    # Select diverse evidence
-    # -----------------------------------------------------------------
+    # ========================================================
+    # Select evidence
+    # ========================================================
 
     def select(
         self,
         query: str,
     ) -> list[dict]:
 
-        # -------------------------------------------------------------
-        # Retrieve candidates
-        # -------------------------------------------------------------
+        # ----------------------------------------------------
+        # Retrieve
+        # ----------------------------------------------------
 
         candidates = (
-            self.reranker.retrieve_candidates(
+            self.reranker.retriever.retrieve(
                 query,
                 top_k=CANDIDATE_K,
             )
         )
 
-        # -------------------------------------------------------------
+        # ----------------------------------------------------
         # Rerank
-        # -------------------------------------------------------------
+        # ----------------------------------------------------
 
-        reranked = self.reranker.rerank(
-            query,
-            candidates,
-            top_k=CANDIDATE_K,
+        reranked = (
+            self.reranker.rerank(
+                query,
+                candidates,
+                top_k=RERANK_K,
+            )
         )
 
-        # -------------------------------------------------------------
+        # ----------------------------------------------------
         # Diversity selection
-        # -------------------------------------------------------------
+        # ----------------------------------------------------
 
         selected = []
 
-        seen_pmids = set()
+        pmid_counts = {}
 
         for item in reranked:
 
@@ -97,89 +86,162 @@ class EvidenceSelector:
                 )
             ).strip()
 
-            # Skip duplicate publication.
-            if pmid and pmid in seen_pmids:
-                continue
-
-            selected.append(item)
-
             if pmid:
-                seen_pmids.add(pmid)
 
-            if len(selected) >= self.final_k:
+                count = pmid_counts.get(
+                    pmid,
+                    0,
+                )
+
+                if (
+                    count
+                    >= MAX_CHUNKS_PER_PMID
+                ):
+                    continue
+
+                pmid_counts[
+                    pmid
+                ] = count + 1
+
+            selected.append(
+                item
+            )
+
+            if (
+                len(selected)
+                >= self.final_k
+            ):
                 break
 
         return selected
 
 
-# ---------------------------------------------------------------------
-# Display
-# ---------------------------------------------------------------------
+# ============================================================
+# Evidence formatting
+# ============================================================
 
-def display_evidence(
-    query: str,
+def format_evidence(
     evidence: list[dict],
-):
+) -> str:
 
-    print("\n" + "=" * 90)
-    print("FINAL SELECTED EVIDENCE")
-    print("=" * 90)
-
-    print(f"\nQuestion:\n{query}")
+    blocks = []
 
     for i, item in enumerate(
         evidence,
         start=1,
     ):
 
-        print("\n" + "-" * 90)
+        block = f"""
+SOURCE {i}
 
-        print(f"Evidence #{i}")
+PMID: {item.get('pmid', '')}
+Title: {item.get('title', '')}
+Journal: {item.get('journal', '')}
+Year: {item.get('year', '')}
+DOI: {item.get('doi', '')}
+Topic: {item.get('topic', '')}
+
+Evidence:
+{item.get('page_content', '')}
+""".strip()
+
+        blocks.append(
+            block
+        )
+
+    return "\n\n" + (
+        "\n\n".join(blocks)
+    )
+
+
+# ============================================================
+# Display
+# ============================================================
+
+def display_evidence(
+    query: str,
+    evidence: list[dict],
+):
+
+    print(
+        "\n" + "=" * 90
+    )
+
+    print(
+        "FINAL SELECTED EVIDENCE"
+    )
+
+    print(
+        "=" * 90
+    )
+
+    print(
+        f"\nQuestion:\n{query}"
+    )
+
+    for i, item in enumerate(
+        evidence,
+        start=1,
+    ):
 
         print(
-            f"PMID:        {item['pmid']}"
+            "\n" + "-" * 90
         )
 
         print(
-            f"Title:       {item['title']}"
+            f"Evidence #{i}"
         )
 
         print(
-            f"Year:        {item['year']}"
+            f"PMID:        "
+            f"{item.get('pmid', '')}"
         )
 
         print(
-            f"Journal:     {item['journal']}"
+            f"Title:       "
+            f"{item.get('title', '')}"
         )
 
         print(
-            f"DOI:         {item['doi']}"
+            f"Year:        "
+            f"{item.get('year', '')}"
         )
 
         print(
-            f"Topic:       {item['topic']}"
+            f"Journal:     "
+            f"{item.get('journal', '')}"
         )
 
         print(
-            f"Reranker:    "
-            f"{item['reranker_score']:.4f}"
+            f"DOI:         "
+            f"{item.get('doi', '')}"
         )
 
         print(
-            f"Medical:     "
-            f"{item['medical_relevance']:.4f}"
+            f"Topic:       "
+            f"{item.get('topic', '')}"
         )
-
-        print("\nEvidence text:")
 
         print(
-            item["page_content"]
+            f"Final score: "
+            f"{item.get('final_score', 0):.4f}"
+        )
+
+        print(
+            "\nEvidence text:"
+        )
+
+        print(
+            item.get(
+                "page_content",
+                "",
+            )
         )
 
 
-# ---------------------------------------------------------------------
-# Test questions
-# ---------------------------------------------------------------------
+# ============================================================
+# Test queries
+# ============================================================
 
 TEST_QUERIES = [
 
@@ -191,24 +253,33 @@ TEST_QUERIES = [
 
     "How can MRI be used to predict treatment response in glioblastoma?",
 
-    (
-        "What imaging features are associated with "
-        "IDH1 MGMT EGFR and other glioma molecular characteristics?"
-    ),
+    "What imaging features are associated with glioma molecular characteristics?",
 ]
 
 
-# ---------------------------------------------------------------------
+# ============================================================
 # Main
-# ---------------------------------------------------------------------
+# ============================================================
 
 def main():
 
-    print("\n" + "=" * 90)
-    print("PUBMED EVIDENCE SELECTION")
-    print("=" * 90)
+    print(
+        "\n" + "=" * 90
+    )
 
-    reranker = MedicalReranker()
+    print(
+        "PUBMED EVIDENCE SELECTION"
+    )
+
+    print(
+        "=" * 90
+    )
+
+    retriever = MedicalRetriever()
+
+    reranker = MedicalReranker(
+        retriever
+    )
 
     selector = EvidenceSelector(
         reranker,
@@ -226,9 +297,17 @@ def main():
             evidence,
         )
 
-    print("\n" + "=" * 90)
-    print("EVIDENCE SELECTION COMPLETED")
-    print("=" * 90)
+    print(
+        "\n" + "=" * 90
+    )
+
+    print(
+        "EVIDENCE SELECTION COMPLETED"
+    )
+
+    print(
+        "=" * 90
+    )
 
 
 if __name__ == "__main__":

@@ -1,0 +1,575 @@
+{
+  "summary": {
+    "queries_evaluated": 10,
+    "average_term_coverage": 1.0,
+    "average_domain_compatibility": 1.0,
+    "average_final_score": 0.6004263666371503,
+    "average_retrieval_seconds": 10.04605404001195,
+    "duplicate_free_queries": 10
+  },
+  "results": [
+    {
+      "id": "Q01",
+      "question": "What MRI characteristics are associated with glioblastoma?",
+      "evidence_count": 5,
+      "unique_pmids": 5,
+      "term_coverage": 1.0,
+      "term_results": {
+        "glioblastoma": true,
+        "mri": true
+      },
+      "domain_compatibility": 1.0,
+      "average_final_score": 0.5245491401851177,
+      "retrieval_seconds": 9.924152499996126,
+      "sources": [
+        {
+          "pmid": "35838532",
+          "title": "Imaging Glioblastoma Metabolism by Using Hyperpolarized [1-(13)C]Pyruvate",
+          "year": "2022",
+          "doi": "10.1148/rycan.210076",
+          "topic": "09_glioblastoma_imaging",
+          "score": 0.6506042957305909
+        },
+        {
+          "pmid": "39999966",
+          "title": "A Radiologist's Guide to IDH-Wildtype Glioblastoma for Efficient Communication",
+          "year": "2025",
+          "doi": "10.3348/kjr.2024.0982",
+          "topic": "09_glioblastoma_imaging",
+          "score": 0.6331622421741485
+        },
+        {
+          "pmid": "39815367",
+          "title": "Discontiguous recurrences of IDH-wildtype glioblastoma share a common origin",
+          "year": "2025",
+          "doi": "10.1186/s40478-024-01900-1",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.4644684918224811
+        },
+        {
+          "pmid": "28755054",
+          "title": "MRI features can predict EGFR expression in lower grade gliomas: A voxel-based",
+          "year": "2018",
+          "doi": "10.1007/s00330-017-4964-z",
+          "topic": "07_brain_tumor_radiogenomics",
+          "score": 0.4419097453355789
+        },
+        {
+          "pmid": "39019073",
+          "title": "Multi-modal fusion and feature enhancement U-Net coupling with stem cell niches",
+          "year": "2024",
+          "doi": "10.1088/1361-6560/ad64b8",
+          "topic": "09_glioblastoma_imaging",
+          "score": 0.43260092586278914
+        }
+      ]
+    },
+    {
+      "id": "Q02",
+      "question": "How is deep learning used for brain tumor segmentation?",
+      "evidence_count": 5,
+      "unique_pmids": 5,
+      "term_coverage": 1.0,
+      "term_results": {
+        "deep learning": true,
+        "segmentation": true
+      },
+      "domain_compatibility": 1.0,
+      "average_final_score": 0.8419587238629658,
+      "retrieval_seconds": 11.478750300128013,
+      "sources": [
+        {
+          "pmid": "40745383",
+          "title": "Deep learning-driven brain tumor classification and segmentation using",
+          "year": "2025",
+          "doi": "10.1038/s41598-025-13591-2",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.9494461864233017
+        },
+        {
+          "pmid": "40183298",
+          "title": "Brain tumor segmentation and detection in MRI using convolutional neural",
+          "year": "2025",
+          "doi": "10.1177/18758592241311184",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.9225977266828219
+        },
+        {
+          "pmid": "37635491",
+          "title": "Brain Tumor Detection using Deep Learning Approach.",
+          "year": "2023",
+          "doi": "10.4103/0028-3886.383858",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.8585060303409894
+        },
+        {
+          "pmid": "30415717",
+          "title": "Fully Automatic Brain Tumor Segmentation using End-To-End Incremental Deep",
+          "year": "2018",
+          "doi": "10.1016/j.cmpb.2018.09.007",
+          "topic": "02_glioma_mri_deep_learning",
+          "score": 0.8314751202861468
+        },
+        {
+          "pmid": "36156956",
+          "title": "Application of Genetic Algorithm and U-Net in Brain Tumor Segmentation and",
+          "year": "2022",
+          "doi": "10.1155/2022/5625757",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.6477685555815696
+        }
+      ]
+    },
+    {
+      "id": "Q03",
+      "question": "What is the role of radiomics in glioma diagnosis?",
+      "evidence_count": 5,
+      "unique_pmids": 5,
+      "term_coverage": 1.0,
+      "term_results": {
+        "radiomics": true,
+        "glioma": true
+      },
+      "domain_compatibility": 1.0,
+      "average_final_score": 0.5101643395423889,
+      "retrieval_seconds": 4.509922200115398,
+      "sources": [
+        {
+          "pmid": "42611869",
+          "title": "Evaluating the impact of segmentation strategies on radiomic feature stability",
+          "year": "2026",
+          "doi": "10.1371/journal.pone.0356382",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.6959556877613067
+        },
+        {
+          "pmid": "39742798",
+          "title": "MRI-derived radiomics and end-to-end deep learning models for predicting glioma",
+          "year": "2025",
+          "doi": "10.1016/j.clinimag.2024.110386",
+          "topic": "02_glioma_mri_deep_learning",
+          "score": 0.5679419919848442
+        },
+        {
+          "pmid": "40163098",
+          "title": "Machine learning radiomics for H3K27M mutation prediction in gliomas: A",
+          "year": "2025",
+          "doi": "10.1007/s00234-025-03597-y",
+          "topic": "02_glioma_mri_deep_learning",
+          "score": 0.5226134911179543
+        },
+        {
+          "pmid": "34417848",
+          "title": "Molecular subtyping of diffuse gliomas using magnetic resonance imaging:",
+          "year": "2022",
+          "doi": "10.1007/s00330-021-08237-6",
+          "topic": "02_glioma_mri_deep_learning",
+          "score": 0.40270144939422603
+        },
+        {
+          "pmid": "39838503",
+          "title": "Comparative analysis of deep learning and radiomic signatures for overall",
+          "year": "2025",
+          "doi": "10.1186/s40644-024-00818-0",
+          "topic": "02_glioma_mri_deep_learning",
+          "score": 0.36160907745361326
+        }
+      ]
+    },
+    {
+      "id": "Q04",
+      "question": "How can MRI be used to predict treatment response in glioblastoma?",
+      "evidence_count": 5,
+      "unique_pmids": 5,
+      "term_coverage": 1.0,
+      "term_results": {
+        "mri": true,
+        "glioblastoma": true,
+        "treatment": true
+      },
+      "domain_compatibility": 1.0,
+      "average_final_score": 0.6418027261892953,
+      "retrieval_seconds": 10.285940899979323,
+      "sources": [
+        {
+          "pmid": "40299247",
+          "title": "Temporospatial tumor dynamic changes in glioblastoma during radiotherapy.",
+          "year": "2025",
+          "doi": "10.1007/s11060-025-05060-7",
+          "topic": "09_glioblastoma_imaging",
+          "score": 0.7903710280855496
+        },
+        {
+          "pmid": "39999966",
+          "title": "A Radiologist's Guide to IDH-Wildtype Glioblastoma for Efficient Communication",
+          "year": "2025",
+          "doi": "10.3348/kjr.2024.0982",
+          "topic": "09_glioblastoma_imaging",
+          "score": 0.72850042283535
+        },
+        {
+          "pmid": "37789677",
+          "title": "Reproducibility of rCBV in glioblastomas using T2*-weighted perfusion MRI: an",
+          "year": "2024",
+          "doi": "10.4274/dir.2023.232442",
+          "topic": "09_glioblastoma_imaging",
+          "score": 0.6954580356677372
+        },
+        {
+          "pmid": "41492035",
+          "title": "Image enhancement for accelerated MRI using a joint GAN and diffusion model",
+          "year": "2026",
+          "doi": "10.1002/mp.70242",
+          "topic": "02_glioma_mri_deep_learning",
+          "score": 0.5138898953795433
+        },
+        {
+          "pmid": "40158731",
+          "title": "Timing of Planning Magnetic Resonance Imaging and Patient Selection for Adaptive",
+          "year": "2025",
+          "doi": "10.1016/j.ijrobp.2025.03.037",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.4807942489782969
+        }
+      ]
+    },
+    {
+      "id": "Q05",
+      "question": "What imaging features are associated with glioma molecular characteristics?",
+      "evidence_count": 5,
+      "unique_pmids": 5,
+      "term_coverage": 1.0,
+      "term_results": {
+        "glioma": true,
+        "molecular": true
+      },
+      "domain_compatibility": 1.0,
+      "average_final_score": 0.38481942653656,
+      "retrieval_seconds": 7.381356799975038,
+      "sources": [
+        {
+          "pmid": "41428044",
+          "title": "Predicting molecular types of adult-type diffuse gliomas based on MRI reports",
+          "year": "2026",
+          "doi": "10.1007/s00330-025-12211-x",
+          "topic": "02_glioma_mri_deep_learning",
+          "score": 0.4870038583874702
+        },
+        {
+          "pmid": "32912874",
+          "title": "Neuro-Oncology and Radiogenomics: Time to Integrate?",
+          "year": "2020",
+          "doi": "10.3174/ajnr.A6769",
+          "topic": "07_brain_tumor_radiogenomics",
+          "score": 0.46535865217447275
+        },
+        {
+          "pmid": "40338482",
+          "title": "Congress of neurological surgeons systematic review and evidence-based",
+          "year": "2025",
+          "doi": "10.1007/s11060-025-05043-8",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.3544073179364205
+        },
+        {
+          "pmid": "29668342",
+          "title": "Sequencing the next generation of glioblastomas.",
+          "year": "2018",
+          "doi": "10.1080/10408363.2018.1462759",
+          "topic": "07_brain_tumor_radiogenomics",
+          "score": 0.3308969959616661
+        },
+        {
+          "pmid": "38057447",
+          "title": "Magnetic resonance imaging and deoxyribonucleic acid methylation-based",
+          "year": "2024",
+          "doi": "10.1007/s11517-023-02971-3",
+          "topic": "02_glioma_mri_deep_learning",
+          "score": 0.2864303082227707
+        }
+      ]
+    },
+    {
+      "id": "Q06",
+      "question": "What deep learning methods are used for glioblastoma classification?",
+      "evidence_count": 5,
+      "unique_pmids": 5,
+      "term_coverage": 1.0,
+      "term_results": {
+        "deep learning": true,
+        "glioblastoma": true,
+        "classification": true
+      },
+      "domain_compatibility": 1.0,
+      "average_final_score": 0.8242569316923618,
+      "retrieval_seconds": 10.991526199970394,
+      "sources": [
+        {
+          "pmid": "38941861",
+          "title": "Differentiation of glioblastoma from solitary brain metastasis using deep",
+          "year": "2024",
+          "doi": "10.1016/j.cmpb.2024.108288",
+          "topic": "02_glioma_mri_deep_learning",
+          "score": 0.8648671492934226
+        },
+        {
+          "pmid": "40722008",
+          "title": "Prediction of 1p/19q state in glioma by integrated deep learning method based on",
+          "year": "2025",
+          "doi": "10.1186/s12885-025-14454-9",
+          "topic": "02_glioma_mri_deep_learning",
+          "score": 0.8393872678279876
+        },
+        {
+          "pmid": "35345331",
+          "title": "Deep learning quantification of vascular pharmacokinetic parameters in mouse",
+          "year": "2022",
+          "doi": "10.31083/j.fbl2703099",
+          "topic": "02_glioma_mri_deep_learning",
+          "score": 0.8365877151489257
+        },
+        {
+          "pmid": "36692205",
+          "title": "Deep Learning for Noninvasive Assessment of H3 K27M Mutation Status in Diffuse",
+          "year": "2023",
+          "doi": "10.1002/jmri.28606",
+          "topic": "02_glioma_mri_deep_learning",
+          "score": 0.8019458882510662
+        },
+        {
+          "pmid": "40344143",
+          "title": "Brain tumor classification using MRI images and deep learning techniques.",
+          "year": "2025",
+          "doi": "10.1371/journal.pone.0322624",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.7784966379404067
+        }
+      ]
+    },
+    {
+      "id": "Q07",
+      "question": "How is radiogenomics applied to brain tumor imaging?",
+      "evidence_count": 5,
+      "unique_pmids": 5,
+      "term_coverage": 1.0,
+      "term_results": {
+        "radiogenomics": true,
+        "brain tumor": true
+      },
+      "domain_compatibility": 1.0,
+      "average_final_score": 0.4286840260028838,
+      "retrieval_seconds": 4.994295299984515,
+      "sources": [
+        {
+          "pmid": "30667332",
+          "title": "Emerging Applications of Artificial Intelligence in Neuro-Oncology.",
+          "year": "2019",
+          "doi": "10.1148/radiol.2018181928",
+          "topic": "07_brain_tumor_radiogenomics",
+          "score": 0.5836164534091949
+        },
+        {
+          "pmid": "38669717",
+          "title": "Brain tumor detection using proper orthogonal decomposition integrated with deep",
+          "year": "2024",
+          "doi": "10.1016/j.cmpb.2024.108167",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.4246495172381401
+        },
+        {
+          "pmid": "28981352",
+          "title": "Imaging Genetic Heterogeneity in Glioblastoma and Other Glial Tumors: Review of",
+          "year": "2018",
+          "doi": "10.2214/AJR.17.18754",
+          "topic": "07_brain_tumor_radiogenomics",
+          "score": 0.40110812112689015
+        },
+        {
+          "pmid": "37797481",
+          "title": "Tumor radiogenomics in gliomas with Bayesian layered variable selection.",
+          "year": "2023",
+          "doi": "10.1016/j.media.2023.102964",
+          "topic": "07_brain_tumor_radiogenomics",
+          "score": 0.3711290068924427
+        },
+        {
+          "pmid": "31456318",
+          "title": "Imaging signatures of glioblastoma molecular characteristics: A radiogenomics",
+          "year": "2020",
+          "doi": "10.1002/jmri.26907",
+          "topic": "07_brain_tumor_radiogenomics",
+          "score": 0.3629170313477516
+        }
+      ]
+    },
+    {
+      "id": "Q08",
+      "question": "What MRI techniques are useful for monitoring glioblastoma treatment response?",
+      "evidence_count": 5,
+      "unique_pmids": 5,
+      "term_coverage": 1.0,
+      "term_results": {
+        "mri": true,
+        "glioblastoma": true,
+        "treatment": true
+      },
+      "domain_compatibility": 1.0,
+      "average_final_score": 0.7623213318983714,
+      "retrieval_seconds": 14.892861500149593,
+      "sources": [
+        {
+          "pmid": "37789677",
+          "title": "Reproducibility of rCBV in glioblastomas using T2*-weighted perfusion MRI: an",
+          "year": "2024",
+          "doi": "10.4274/dir.2023.232442",
+          "topic": "09_glioblastoma_imaging",
+          "score": 0.8886175294717152
+        },
+        {
+          "pmid": "40720688",
+          "title": "Glioblastoma: Epidemiology and Imaging-Based Review.",
+          "year": "2013",
+          "doi": "",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.8861982596417267
+        },
+        {
+          "pmid": "40158731",
+          "title": "Timing of Planning Magnetic Resonance Imaging and Patient Selection for Adaptive",
+          "year": "2025",
+          "doi": "10.1016/j.ijrobp.2025.03.037",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.6837001139918963
+        },
+        {
+          "pmid": "41492035",
+          "title": "Image enhancement for accelerated MRI using a joint GAN and diffusion model",
+          "year": "2026",
+          "doi": "10.1002/mp.70242",
+          "topic": "02_glioma_mri_deep_learning",
+          "score": 0.6784160606563091
+        },
+        {
+          "pmid": "39905844",
+          "title": "Diagnostic value and efficacy of multimodal magnetic resonance imaging in",
+          "year": "2025",
+          "doi": "10.1177/02841851241310392",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.6746746957302093
+        }
+      ]
+    },
+    {
+      "id": "Q09",
+      "question": "What role does IDH status play in glioma imaging research?",
+      "evidence_count": 5,
+      "unique_pmids": 5,
+      "term_coverage": 1.0,
+      "term_results": {
+        "idh": true,
+        "glioma": true
+      },
+      "domain_compatibility": 1.0,
+      "average_final_score": 0.4304728110134602,
+      "retrieval_seconds": 10.222985700005665,
+      "sources": [
+        {
+          "pmid": "40748516",
+          "title": "Single center experience of IDH inhibitors in recurrent high-grade gliomas.",
+          "year": "2025",
+          "doi": "10.1007/s11060-025-05183-x",
+          "topic": "10_brain_neoplasm_ml",
+          "score": 0.467159204185009
+        },
+        {
+          "pmid": "35743228",
+          "title": "The Value of FET PET/CT in Recurrent Glioma with a Different IDH Mutation",
+          "year": "2022",
+          "doi": "10.3390/ijms23126787",
+          "topic": "10_brain_neoplasm_ml",
+          "score": 0.4572674728929996
+        },
+        {
+          "pmid": "40479721",
+          "title": "Low-grade IDH-mutant gliomas: from standard post-surgical treatments to novel",
+          "year": "2025",
+          "doi": "10.1080/14656566.2025.2516617",
+          "topic": "10_brain_neoplasm_ml",
+          "score": 0.4154341518878937
+        },
+        {
+          "pmid": "35027006",
+          "title": "Large tumour volume reduction of IDH-mutated anaplastic glioma involving the",
+          "year": "2022",
+          "doi": "10.1186/s12883-021-02548-3",
+          "topic": "10_brain_neoplasm_ml",
+          "score": 0.4107946187257767
+        },
+        {
+          "pmid": "39874812",
+          "title": "Detecting IDH and TERTp mutations in diffuse gliomas using (1)H-MRS with",
+          "year": "2025",
+          "doi": "10.1016/j.compbiomed.2025.109736",
+          "topic": "02_glioma_mri_deep_learning",
+          "score": 0.40170860737562175
+        }
+      ]
+    },
+    {
+      "id": "Q10",
+      "question": "What machine learning approaches are used in brain neoplasm research?",
+      "evidence_count": 5,
+      "unique_pmids": 5,
+      "term_coverage": 1.0,
+      "term_results": {
+        "machine learning": true,
+        "brain": true
+      },
+      "domain_compatibility": 1.0,
+      "average_final_score": 0.6552342094480992,
+      "retrieval_seconds": 15.778748999815434,
+      "sources": [
+        {
+          "pmid": "35009911",
+          "title": "Brain Tumor/Mass Classification Framework Using Magnetic-Resonance-Imaging-Based",
+          "year": "2022",
+          "doi": "10.3390/s22010372",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.9035649523139
+        },
+        {
+          "pmid": "38689289",
+          "title": "Advanced AI-driven approach for enhanced brain tumor detection from MRI images",
+          "year": "2024",
+          "doi": "10.1186/s12911-024-02519-x",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.7760772861540317
+        },
+        {
+          "pmid": "40344143",
+          "title": "Brain tumor classification using MRI images and deep learning techniques.",
+          "year": "2025",
+          "doi": "10.1371/journal.pone.0322624",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.665855161845684
+        },
+        {
+          "pmid": "39948696",
+          "title": "Revolutionizing Brain Tumor Detection Using Explainable AI in MRI Images.",
+          "year": "2025",
+          "doi": "10.1002/nbm.70001",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.50016570687294
+        },
+        {
+          "pmid": "36691030",
+          "title": "MRI-based brain tumor detection using convolutional deep learning methods and",
+          "year": "2023",
+          "doi": "10.1186/s12911-023-02114-6",
+          "topic": "01_brain_tumor_mri_diagnosis",
+          "score": 0.4305079400539398
+        }
+      ]
+    }
+  ]
+}
